@@ -1,0 +1,35 @@
+{
+  "perl": "6.d",
+  "name": "DSL::English::FoodPreparationWorkflows",
+  "api": "1",
+  "auth": "github:antononcube",
+  "version": "0.1.0",
+  "description": "Food preparation workflows building by natural language commands.",
+  "authors": [
+    "Anton Antonov"
+  ],
+  "license": "GPL-3.0-or-later",
+  "provides": {
+    "DSL::English::FoodPreparationWorkflows": "lib/DSL/English/FoodPreparationWorkflows.rakumod",
+    "DSL::English::FoodPreparationWorkflows::Grammar": "lib/DSL/English/FoodPreparationWorkflows/Grammar.rakumod",
+    "DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard": "lib/DSL/English/FoodPreparationWorkflows/Actions/Bulgarian/Standard.rakumod",
+    "DSL::English::FoodPreparationWorkflows::Actions::WL::System": "lib/DSL/English/FoodPreparationWorkflows/Actions/WL/System.rakumod"
+  },
+  "depends": [
+    "DSL::Shared"
+  ],
+  "build-depends": [],
+  "test-depends": [],
+  "resources": [],
+  "tags": [
+    "food",
+    "preparation",
+    "cooking",
+    "parser",
+    "interpreter",
+    "monad",
+    "workflow",
+    "pipeline"
+  ],
+  "source-url": "https://github.com/antononcube/Raku-DSL-English-FoodPreparationWorkflows.git"
+}
