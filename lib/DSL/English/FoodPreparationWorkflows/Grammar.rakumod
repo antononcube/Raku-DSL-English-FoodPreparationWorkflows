@@ -30,20 +30,38 @@
 
 use v6;
 
+
+use DSL::Shared::Roles::English::CommonParts;
+use DSL::Shared::Roles::English::PipelineCommand;
 use DSL::Shared::Roles::PredicateSpecification;
 use DSL::Shared::Roles::ErrorHandling;
 
-use DSL::English::FoodPreparationWorkflows::Grammar::FoodEntities;
+use DSL::Entity::English::Foods::Grammar::FoodEntities;
 
 grammar DSL::English::FoodPreparationWorkflows::Grammar
+        does DSL::Shared::Roles::English::PipelineCommand
         does DSL::Shared::Roles::ErrorHandling
-        does DSL::English::FoodPreparationWorkflows::Grammar::FoodEntities {
+        does DSL::Entity::English::Foods::Grammar::FoodEntities {
     # TOP
     rule TOP {
-        <pipeline-command> |
+        <pipeline-command> ||
+        <love-food-entity-command> ||
+        <cooking-food-entity-command> ||
+        <data-query-command> ||
         <food-entity-command>
     }
 
-    rule food-entity-command { 'i' [ 'want' | 'crave' ] <food-entity> }
+    rule love-food-entity-command { 'i' [ 'want' | 'crave' ] <food-entity> }
+
+    rule data-query-command { [ 'how' 'many' | 'what' 'count' 'of'? ] <food-entity> [ 'i' 'have' | 'is' 'in' [ 'my' | <the-determiner> ]? [ 'fridge' | 'refrigerator' ] ]? }
+
+    rule cooking-food-entity-command {
+        'i' [ 'want' | 'plan' ] 'to' 'cook' <food-entity> |
+        [ 'tell' 'me' | 'give' 'directions' ] 'how' 'to' 'cook' <food-entity> |
+        'instruct' 'me' 'to' 'cook' <food-entity>
+    }
+
+    rule food-entity-command { <food-entity> }
+
 }
 

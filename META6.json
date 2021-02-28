@@ -16,13 +16,15 @@
     "DSL::English::FoodPreparationWorkflows::Actions::WL::System": "lib/DSL/English/FoodPreparationWorkflows/Actions/WL/System.rakumod"
   },
   "depends": [
-    "DSL::Shared"
+    "DSL::Shared",
+    "DSL::Entity::English::Foods"
   ],
   "build-depends": [],
   "test-depends": [],
   "resources": [],
   "tags": [
     "food",
+    "drink",
     "preparation",
     "cooking",
     "parser",

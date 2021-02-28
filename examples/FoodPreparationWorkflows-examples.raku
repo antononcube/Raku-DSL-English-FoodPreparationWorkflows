@@ -5,8 +5,18 @@ use DSL::English::FoodPreparationWorkflows;
 my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 
 #use Grammar::Tracer;
+#
+#say $pCOMMAND.parse('i want chicken and mushroom pies', rule => 'love-food-entity-command');
+#
+#say $pCOMMAND.parse('i want arizona iced tea', rule => 'love-food-entity-command');
+#
+#say $pCOMMAND.parse('i want mac \' n cheese', rule => 'love-food-entity-command');
+#
+#say $pCOMMAND.parse('i want black - eyed peas', rule => 'love-food-entity-command');
 
-say $pCOMMAND.parse( 'i want chicken fried rices', rule => 'food-entity-command');
+say $pCOMMAND.subparse('how many arizona iced teas i have', rule => 'data-query-command');
+
+say $pCOMMAND.subparse('how many arizona iced tea');
 
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers', rule => 'classifier-ensemble-creation-command');
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers using 0.7 resampling', rule => 'classifier-ensemble-creation-command');
