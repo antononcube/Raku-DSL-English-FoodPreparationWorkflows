@@ -9,8 +9,12 @@ It is envisioned that the interpreters (actions) are going to target different
 programming languages: R, Mathematica, Python, etc.
 
 This project is closely related to the project
-[SousChefSusana](https://github.com/sgizm/SousChefSusana).
+[SousChefSusana](https://github.com/antononcube/ConversationalAgents/tree/master/Projects/SousChefSusana).
   
+This diagram shows the conversational agent components this grammar addresses:
+
+[![SousChefSusanaComponents](https://github.com/antononcube/ConversationalAgents/raw/master/Projects/SousChefSusana/Diagrams/Sous-Chef-Susana-design-small.jpg)](https://github.com/antononcube/ConversationalAgents/raw/master/Projects/SousChefSusana/Diagrams/Sous-Chef-Susana-design.jpg)
+
 ## Installation
 
 **1.** Install Raku (Perl 6) : https://raku.org/downloads . 
@@ -24,8 +28,10 @@ This project is closely related to the project
 
 **4.** Run the commands:
 
-```
+```shell
 zef install https://github.com/antononcube/Raku-DSL-Shared.git
+zef install https://github.com/antononcube/Raku-DSL-Entity-English-Foods.git
+zef install https://github.com/antononcube/Raku-DSL-Entity-English-Geographics.git
 zef install https://github.com/antononcube/Raku-DSL-English-FoodPreparationWorkflows.git
 ```
 
@@ -68,4 +74,18 @@ The command above should print out WL code for the WL package `...`, \[AA1\]:
 
 ## References
 
-TBD...
+[AAr1] Anton Antonov,
+[DSL::Shared Raku package](https://github.com/antononcube/Raku-DSL-Shared),
+(2020),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAr2] Anton Antonov,
+[DSL::Entity::English::Foods Raku package](https://github.com/antononcube/Raku-DSL-Entity-English-Foods),
+(2021),
+[GitHub/antononcube](https://github.com/antononcube).
+
+[AAr3] Anton Antonov,
+[DSL::Entity::English::Geographics Raku package](https://github.com/antononcube/Raku-DSL-Entity-English-Geographics),
+(2021),
+[GitHub/antononcube](https://github.com/antononcube).
+
