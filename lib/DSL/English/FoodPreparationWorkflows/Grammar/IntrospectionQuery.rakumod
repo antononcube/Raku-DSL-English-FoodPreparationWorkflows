@@ -1,6 +1,5 @@
 use v6;
 
-
 role DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery {
 
     rule introspection-query-command {

@@ -14,18 +14,48 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
         does DSL::Entity::English::Geographics::Grammar::CountryAdjectives
         does DSL::Shared::Roles::English::PipelineCommand {
 
+    rule recommend-phrase {
+        <recommend-food-prep-word>          | <suggest-food-prep-word>
+    }
+
+    ##-------------------------------------------------------
+    rule item-of-food-phrase { <course-phrase> | <dish-phrase> }
+
+    token course-phrase { <course-food-prep-word> | <courses-food-prep-word> }
+    token dish-phrase { <dishes-food-prep-word> | <dish-food-prep-word> }
+
+    ##-------------------------------------------------------
+    rule chef-spec {
+        <chef-noun>          | <you-food-prep-word>          | <sous-chef-susana-name>
+    }
+
+    token sous-chef-susana-name {
+        <sous-prefix> <chef-noun> <susana-noun> | 'scs'
+    }
+    token chef-noun { 'chef' }
+    token sous-prefix { 'sous' }
+    token susana-noun { 'susana' }
+
+    ##-------------------------------------------------------
     rule food-cuisine-spec {
-        <country-adjective> [<cuisine-noun>       | <food-noun>       | <kitchen-noun> ]?
+        <country-adjective> [<cuisine-noun>                | <food-noun>                | <kitchen-noun> ]?
     }
 
     token cuisine-noun { 'cuisine' }
     token food-noun { 'food' }
     token kitchen-noun { 'kitchen' }
 
+    ##-------------------------------------------------------
     rule period-spec {
-        <breakfast-noun>    | <dinner-noun>    | <lunch-noun>    |
-        <afternoon-noun>    | <evening-noun>    | <morning-noun>    | <noon-noun>    |
-        <easter-noun>    | <christmas-noun>
+        <breakfast-noun>   |
+        <dinner-noun>      |
+        <lunch-noun>       |
+        <afternoon-noun>   |
+        <evening-noun>     |
+        <morning-noun>     |
+        <noon-noun>        |
+        <easter-noun>      |
+        <christmas-noun>
     }
 
     token afernoon-noun { 'afternoon' }
@@ -40,11 +70,25 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
 
     token during-preposition { 'during' }
 
+    ##-------------------------------------------------------
+    ## General rules
+    rule several-phrase { <a-determiner>? <few-food-prep-word> | <several-food-prep-word> }
+    rule cook-phrase { <cook-food-prep-word> | <prepare-food-prep-word> | <experiment-with-phrase> }
+    rule experiment-with-phrase { <experiment-food-prep-word> <with-preposition> | <try-food-prep-word> <out-adverb>? }
+
+    ##-------------------------------------------------------
+    ## General tokens
+    token can-food-prep-word { 'can' }
     token contain-food-prep-word { 'contain' }
     token cook-food-prep-word { 'cook' }
     token cooked-food-prep-word { 'cooked' }
+    token course-food-prep-word { 'course' }
+    token courses-food-prep-word { 'courses' }
+    token experiment-food-prep-word { 'experiment' }
+    token dish-food-prep-word { 'dish' }
     token dishes-food-prep-word { 'dishes' }
     token eat-food-prep-word { 'eat' }
+    token few-food-prep-word { 'few' }
     token had-food-prep-word { 'had' }
     token have-food-prep-word { 'have' }
     token how-food-prep-word { 'how' }
@@ -61,6 +105,9 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token often-food-prep-word { 'often' }
     token prepare-food-prep-word { 'prepare' }
     token recipes-food-prep-word { 'recipes' }
+    token recommend-food-prep-word { 'recommend' }
+    token several-food-prep-word { 'several' }
+    token suggest-food-prep-word { 'suggest' }
     token time-food-prep-word { 'time' }
     token times-food-prep-word { 'times' }
     token was-food-prep-word { 'was' }

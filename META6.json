@@ -16,7 +16,8 @@
     "DSL::English::FoodPreparationWorkflows::Grammar": "lib/DSL/English/FoodPreparationWorkflows/Grammar.rakumod",
     "DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases": "lib/DSL/English/FoodPreparationWorkflows/Grammar/FoodPreparationPhrases.rakumod",
     "DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IngredientQuery.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IntrospectionQuery.rakumod"
+    "DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IntrospectionQuery.rakumod",
+    "DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand": "lib/DSL/English/FoodPreparationWorkflows/Grammar/RecommendationsCommand.rakumod"
   },
   "depends": [
     "DSL::Shared",
