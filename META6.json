@@ -11,13 +11,17 @@
   "license": "GPL-3.0-or-later",
   "provides": {
     "DSL::English::FoodPreparationWorkflows": "lib/DSL/English/FoodPreparationWorkflows.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Grammar": "lib/DSL/English/FoodPreparationWorkflows/Grammar.rakumod",
     "DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard": "lib/DSL/English/FoodPreparationWorkflows/Actions/Bulgarian/Standard.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Actions::WL::System": "lib/DSL/English/FoodPreparationWorkflows/Actions/WL/System.rakumod"
+    "DSL::English::FoodPreparationWorkflows::Actions::WL::System": "lib/DSL/English/FoodPreparationWorkflows/Actions/WL/System.rakumod",
+    "DSL::English::FoodPreparationWorkflows::Grammar": "lib/DSL/English/FoodPreparationWorkflows/Grammar.rakumod",
+    "DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases": "lib/DSL/English/FoodPreparationWorkflows/Grammar/FoodPreparationPhrases.rakumod",
+    "DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IngredientQuery.rakumod",
+    "DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IntrospectionQuery.rakumod"
   },
   "depends": [
     "DSL::Shared",
-    "DSL::Entity::English::Foods"
+    "DSL::Entity::English::Foods",
+    "DSL::Entity::English::Geographics"
   ],
   "build-depends": [],
   "test-depends": [],

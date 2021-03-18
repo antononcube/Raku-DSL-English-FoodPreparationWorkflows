@@ -36,32 +36,34 @@ use DSL::Shared::Roles::English::PipelineCommand;
 use DSL::Shared::Roles::PredicateSpecification;
 use DSL::Shared::Roles::ErrorHandling;
 
-use DSL::Entity::English::Foods::Grammar::FoodEntities;
+use DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery;
+use DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery;
 
 grammar DSL::English::FoodPreparationWorkflows::Grammar
         does DSL::Shared::Roles::English::PipelineCommand
         does DSL::Shared::Roles::ErrorHandling
-        does DSL::Entity::English::Foods::Grammar::FoodEntities {
+        does DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery
+        does DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery {
+
     # TOP
     rule TOP {
         <pipeline-command> ||
-        <love-food-entity-command> ||
-        <cooking-food-entity-command> ||
-        <data-query-command> ||
+        <ingredient-query-command> ||
+        <introspection-query-command> ||
         <food-entity-command>
     }
 
-    rule love-food-entity-command { 'i' [ 'want' | 'crave' ] <food-entity> }
+    rule love-food-entity-command { 'i' [ 'want' | 'crave' ] [ <food-name> | <drink-entity> | <take-out-entity> ] }
 
-    rule data-query-command { [ 'how' 'many' | 'what' 'count' 'of'? ] <food-entity> [ 'i' 'have' | 'is' 'in' [ 'my' | <the-determiner> ]? [ 'fridge' | 'refrigerator' ] ]? }
+    rule location-spec { 'fridge' | 'refrigerator' | 'pantry' }
 
     rule cooking-food-entity-command {
-        'i' [ 'want' | 'plan' ] 'to' 'cook' <food-entity> |
-        [ 'tell' 'me' | 'give' 'directions' ] 'how' 'to' 'cook' <food-entity> |
-        'instruct' 'me' 'to' 'cook' <food-entity>
+        'i' [ 'want' | 'plan' ] 'to' 'cook' <food-name> |
+        [ 'tell' 'me' | 'give' 'directions' ] 'how' 'to' 'cook' <food-name> |
+        'instruct' 'me' 'to' 'cook' <food-name>
     }
 
-    rule food-entity-command { <food-entity> }
+    rule food-entity-command { <food-name> }
 
 }
 
