@@ -5,7 +5,6 @@ use DSL::English::FoodPreparationWorkflows::Grammar::IngredientPhrase;
 use DSL::Shared::Roles::English::CommonSpeechParts;
 
 role DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery
-        does DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
         does DSL::English::FoodPreparationWorkflows::Grammar::IngredientPhrase {
 
     rule ingredient-query-command {

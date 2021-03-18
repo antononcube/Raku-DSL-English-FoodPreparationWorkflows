@@ -39,19 +39,22 @@ use DSL::Shared::Roles::ErrorHandling;
 use DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery;
 use DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery;
 use DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand;
+use DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases;
 
 grammar DSL::English::FoodPreparationWorkflows::Grammar
         does DSL::Shared::Roles::English::PipelineCommand
         does DSL::Shared::Roles::ErrorHandling
         does DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery
         does DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery
-        does DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand {
+        does DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand
+        does DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases {
 
     # TOP
     rule TOP {
         <pipeline-command> ||
         <ingredient-query-command> ||
         <introspection-query-command> ||
+        <recommendations-by-profile-command> ||
         <recommendations-command> ||
         <food-entity-command>
     }

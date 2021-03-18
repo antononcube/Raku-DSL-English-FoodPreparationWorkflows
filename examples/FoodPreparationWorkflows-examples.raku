@@ -14,9 +14,31 @@ my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 #
 #say $pCOMMAND.parse('i want black - eyed peas', rule => 'love-food-entity-command');
 
-say $pCOMMAND.subparse('how many arizona iced teas i have', rule => 'data-query-command');
+#say $pCOMMAND.subparse('What do I eat for breakfast thai food');
 
-say $pCOMMAND.subparse('how many arizona iced tea');
+#say $pCOMMAND.subparse('how many arizona iced teas are in the fridge');
+
+#say $pCOMMAND.subparse('how many arizona iced teas i have');
+
+#say $pCOMMAND.subparse('how many arizona iced tea');
+
+say $pCOMMAND.subparse('what number of dishes have low carbs');
+
+say $pCOMMAND.subparse('how many dishes have saturated fats');
+
+say $pCOMMAND.parse('what do i eat for lunch');
+
+say $pCOMMAND.parse('what do i cook during easter');
+
+say $pCOMMAND.parse('recommend dishes to cook');
+
+say $pCOMMAND.parse('recommend a few courses');
+
+say $pCOMMAND.parse('recommend a few courses to experiment with');
+
+say $pCOMMAND.parse('recommend a few courses from china');
+
+say $pCOMMAND.subparse('suggest a recipe with low carbs');
 
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers', rule => 'classifier-ensemble-creation-command');
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers using 0.7 resampling', rule => 'classifier-ensemble-creation-command');
