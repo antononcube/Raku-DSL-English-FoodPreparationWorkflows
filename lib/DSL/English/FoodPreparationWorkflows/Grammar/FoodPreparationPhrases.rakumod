@@ -16,7 +16,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
         does DSL::Shared::Roles::English::PipelineCommand {
 
     rule recommend-phrase {
-        <recommend-food-prep-word>       | <suggest-food-prep-word>
+        [ <recommend-food-prep-word> | <suggest-food-prep-word> | <tell-food-prep-word> ] <to-preposition>? <me-food-prep-word>?
     }
 
     rule recommendations-phrase {
