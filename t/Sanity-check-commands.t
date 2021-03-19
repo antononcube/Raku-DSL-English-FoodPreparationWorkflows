@@ -5,6 +5,12 @@ use Test;
 
 my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 
+##===========================================================
+## Sanity check commands
+##===========================================================
+## The list of tests here is for illustration purposes.
+## The list is made of small samples of more dedicated tests.
+
 plan 9;
 
 ok $pCOMMAND.parse('what number of dishes have low carbs'),
