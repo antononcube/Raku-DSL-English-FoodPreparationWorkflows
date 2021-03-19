@@ -3,7 +3,7 @@ use v6;
 role DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand {
 
     rule recommendations-command {
-        <.can-food-prep-word> <.sous-chef-spec> <.recommend-phrase> <.dishes-food-prep-word> <.with-preposition> <ingredient-phrase> |
+        <.can-food-prep-word> <.sous-chef-spec> <.recommend-phrase> <.dishes-food-prep-word> <.with-preposition> <ingredient-spec> |
         <.recommend-phrase> <.a-determiner>? [ <item-of-food-phrase> <.to-preposition> ] <cook-food-prep-word> |
         <.what-food-prep-word> <.to-preposition> <.cook-phrase> |
         <.recommend-phrase> [
@@ -25,13 +25,13 @@ role DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand {
            <item-of-food-phrase> <.from-preposition> <food-cuisine-spec> |
            [ <recipe-food-prep-word> | <item-of-food-phrase> ] [
               <.from-preposition> <food-cuisine-spec> |
-              <.with-preposition> <ingredient-phrase> ] |
+              <.with-preposition> <ingredient-spec> ] |
            <some-food-prep-word> <food-cuisine-spec> <.item-of-food-prese>?
            <something-food-prep-word> [ <.with-preposition> <light-food-prep-word> <calories-food-prep-word> | <low-food-prep-word> <calorie-food-prep-word> ] |
            <period-spec> <item-of-food-phrase> |
            <new-food-prep-word> <recipe-food-prep-word> |
            <interesting-food-prep-word> <recipe-food-prep-word> |
-           <ingredient-phrase> <item-of-food-phrase> <.suggestions-phrase> |
+           <ingredient-spec> <item-of-food-phrase> <.suggestions-phrase> |
            <non-prefix> <cusine-spec> <recipe-food-prep-word> |
            <.some-food-prep-word> <interesting-food-prep-word> <cuisine-spec> <recipe-food-prep-word> ]
     }
