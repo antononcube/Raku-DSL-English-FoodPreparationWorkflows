@@ -30,8 +30,8 @@ role DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery
     rule do-you-know-to-have-phrase { <do-you-know-phrase>? <to-preposition>? <have-phrase> }
 
     rule ingredient-query-body {
-        <item-of-food-phrase>  <.have-phrase> <.the-determiner>? <.ingredients-phrase>? <ingredient-spec>    |
-        <recipes-food-prep-word> <.do-you-know-to-have-phrase> <.the-determiner>? <.ingredients-phrase>? <ingredient-spec>    |
-        <dishes-food-prep-word> <.do-you-know-to-have-phrase> <.the-determiner>? <.ingredients-phrase>? <ingredient-spec>
+        <item-of-food-phrase>  <.have-phrase> <.the-determiner>? <.ingredients-phrase>? <ingredient-spec-list>    |
+        <recipes-food-prep-word> <.do-you-know-to-have-phrase> <.the-determiner>? <.ingredients-phrase>? <ingredient-spec-list>    |
+        <dishes-food-prep-word> <.do-you-know-to-have-phrase> <.the-determiner>? <.ingredients-phrase>? <ingredient-spec-list>
     }
 }
