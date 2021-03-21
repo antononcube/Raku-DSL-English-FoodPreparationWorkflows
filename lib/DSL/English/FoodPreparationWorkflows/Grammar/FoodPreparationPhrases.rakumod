@@ -36,7 +36,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
 
     ##-------------------------------------------------------
     rule user-be-phrase {
-        <user-spec> <user-be-verb>
+        <user-spec> <user-be-verb> | <im-food-prep-word>
     }
     token user-spec {
         <i-food-prep-word> | <we-food-prep-word>
@@ -59,7 +59,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
 
     ##-------------------------------------------------------
     rule food-cuisine-spec {
-        [<country-name-known>       | <country-adjective-known>       | <local-adjective> ] [<cuisine-noun>       | <food-noun>       | <kitchen-noun> ]?
+        [ <country-name-known> | <country-adjective-known> | <local-adjective> ] [ <cuisine-noun> | <food-noun> | <kitchen-noun> ]?
     }
 
     token cuisine-noun { 'cuisine' }
@@ -81,8 +81,8 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     }
 
     rule period-meal-spec {
-        <breakfast-noun>            |
-        <dinner-noun>               |
+        <breakfast-noun> |
+        <dinner-noun> |
         <lunch-noun>
     }
 
@@ -95,8 +95,6 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token lunch-noun { 'lunch' }
     token morning-noun { 'morning' }
     token noon-noun { 'noon' }
-
-    token during-preposition { 'during' }
 
     ##-------------------------------------------------------
     ## General rules
@@ -124,13 +122,13 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     rule which-items-phrase { <what-food-prep-word> | <which-determiner> }
     rule how-many-items-phrase { <what-food-prep-word> <number-food-prep-word> <of-preposition> | <how-food-prep-word> <many-food-prep-word> }
 
+    rule to-eat-pharse { <to-preposition> <eat-food-prep-word> | <to-preposition> <get-verb> }
+
     ##-------------------------------------------------------
     ## General tokens
     token am-food-prep-word { 'am' }
-    token calorie-food-prep-word { 'calorie' }
-    token calories-food-prep-word { 'calories' }
+    token are-food-prep-word { 'are' }
     token can-food-prep-word { 'can' }
-    token carrots-food-prep-word { 'carrots' }
     token component-food-prep-word { 'component' }
     token contain-food-prep-word { 'contain' }
     token cook-food-prep-word { 'cook' }
