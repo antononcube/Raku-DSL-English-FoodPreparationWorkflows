@@ -37,8 +37,56 @@ use DSL::Entity::English::Foods::Grammar::FoodEntities;
 class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         is DSL::Shared::Actions::English::WL::PipelineCommand {
 
-    # method TOP($/) { make $/.values[0].made; }
+    method TOP($/) { make $/.values[0].made; }
 
-    method TOP($/) { make 'Not implemented.'; }
+    #method TOP($/) { make 'Not implemented.'; }
 
+    method data-query-command($/)  {
+        make $.Str;
+        # make 'SELECT Sum(Quantity) FROM inventory WHERE Name == ' ~ $<food-entity> ~ ' AND Location == ' ~ $<location-spec>;
+        make 'Total[dsInvetory[Select[#Name == "' ~ $<food-entity> ~ '" && #Location == "' ~ $<location> ~'" &]][All,Quantity"]]';
+    }
+    method location-spec($/) { make $.Str; }
+
+    method recommendations-command($/) {
+        make 'smrSCS ==> SMRRecommend[] ==> SMRMonTakeValue[]';
+    }
+
+    method recommendations-by-profile-command($/) {
+        my Str @resProfile;
+
+        if $<food-quality-spec> {
+             @resProfile.append($<food-quality-spec>.made)
+        }
+
+        if $<period-meal-spec> {
+             @resProfile.append($<period-meal-spec>.made)
+        }
+
+        if $<food-cuisine-spec> {
+             @resProfile.append($<food-cuisine-spec>.made)
+        }
+
+        make 'smrSCS ==> SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ==> SMRMonTakeValue[]';
+    }
+
+    method food-cuisine-spec($/) {
+        make '"Cuisine:' ~ $/.Str.trim.lc ~ '"';
+    }
+
+    method period-meal-spec($/) {
+        make '"PeriodMeal:' ~ $/.Str.trim.lc ~ '"';
+    }
+
+    method food-quality-spec($/) {
+        make $/.values[0].made;
+    }
+
+    method ingredient-spec-list($/) {
+        make $/.values>>.made;
+    }
+
+    method ingredient-spec($/) {
+        make '"Ingredient:' ~ $/.Str.trim.lc ~ '"';
+    }
 }
