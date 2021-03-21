@@ -6,27 +6,43 @@ use DSL::Shared::Utilities::FuzzyMatching;
 role DSL::English::FoodPreparationWorkflows::Grammar::IngredientSpec
         does DSL::Shared::Roles::English::PipelineCommand {
 
+    rule ingredient-spec-list { <ingredient-spec>+ % <.list-separator> }
+
     rule ingredient-spec {
-        [ <low-food-prep-word> | <high-food-prep-word> ]?
+        [ <low-adjective> | <lower-adjective> | <high-adjective> | <higher-adjective> ]?
         [
          <carbonhydrates-food-prep-word> |
          <carbs-food-prep-word> |
+         <calorie-food-prep-word> |
+         <calories-food-prep-word> |
+         <carrots-food-prep-word> |
+         <fat-food-prep-word> |
          <fats-food-prep-word> |
+         <fatty-food-prep-word> |
          <protein-food-prep-word> |
          <proteins-food-prep-word> |
          <fats-food-prep-word> |
          <saturated-food-prep-word> <fats-food-prep-word> |
          <sugars-food-prep-word> |
+         <sweet-food-prep-word> |
          <water-food-prep-word> ] }
 
+    rule food-quality-spec {
+        <ingredient-spec-list>
+    }
+
     token carbonhydrates-food-prep-word { 'carbonhydrates' }
+    token carrots-food-prep-word { 'carrots' }
     token carbs-food-prep-word { 'carbs' }
+    token calorie-food-prep-word { 'calorie' }
+    token calories-food-prep-word { 'calories' }
+    token fat-food-prep-word { 'fat' }
     token fats-food-prep-word { 'fats' }
-    token high-food-prep-word { 'high' }
-    token low-food-prep-word { 'low' }
+    token fatty-food-prep-word { 'fatty' }
     token protein-food-prep-word { 'protein' }
     token proteins-food-prep-word { 'proteins' }
     token saturated-food-prep-word { 'saturated' }
     token sugars-food-prep-word { 'sugars' }
+    token sweet-food-prep-word { 'sweet' }
     token water-food-prep-word { 'water' }
 }
