@@ -11,55 +11,72 @@ my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 
 plan 17;
 
-ok $pCOMMAND.parse('can you suggest dishes with fats'),
+## 1
+ok $pCOMMAND.parse('can you suggest dishes with fats'.lc),
         'can you suggest dishes with fats';
 
-ok $pCOMMAND.parse('can you suggest dishes with low carbs'),
+## 2
+ok $pCOMMAND.parse('can you suggest dishes with low carbs'.lc),
         'can you suggest dishes with low carbs';
 
-ok $pCOMMAND.parse('can you suggest dishes with protein'),
+## 3
+ok $pCOMMAND.parse('can you suggest dishes with protein'.lc),
         'can you suggest dishes with protein';
 
-ok $pCOMMAND.parse('can you suggest dishes with sugars'),
+## 4
+ok $pCOMMAND.parse('can you suggest dishes with sugars'.lc),
         'can you suggest dishes with sugars';
 
-ok $pCOMMAND.parse('recommend a course'),
+## 5
+ok $pCOMMAND.parse('recommend a course'.lc),
         'recommend a course';
 
-ok $pCOMMAND.parse('recommend a dish'),
+## 6
+ok $pCOMMAND.parse('recommend a dish'.lc),
         'recommend a dish';
 
-ok $pCOMMAND.parse('recommend a dish to cook'),
+## 7
+ok $pCOMMAND.parse('recommend a dish to cook'.lc),
         'recommend a dish to cook';
 
-ok $pCOMMAND.parse('recommend a few dishes'),
+## 8
+ok $pCOMMAND.parse('recommend a few dishes'.lc),
         'recommend a few dishes';
 
-ok $pCOMMAND.parse('recommend courses for dinner'),
-        'recommend courses for dinner';
-
-ok $pCOMMAND.parse('recommend courses for easter'),
+## 9
+ok $pCOMMAND.parse('recommend courses for easter'.lc),
         'recommend courses for easter';
 
-ok $pCOMMAND.parse('recommend courses for lunch'),
+## 10
+ok $pCOMMAND.parse('recommend courses for lunch'.lc),
         'recommend courses for lunch';
 
-ok $pCOMMAND.parse('recommend dishes'),
+## 11
+ok $pCOMMAND.parse('recommend dishes'.lc),
         'recommend dishes';
 
-ok $pCOMMAND.parse('recommend dishes for dinner'),
+## 12
+ok $pCOMMAND.parse('recommend dishes for dinner'.lc),
         'recommend dishes for dinner';
 
-ok $pCOMMAND.parse('suggest a dish to cook'),
+## 13
+ok $pCOMMAND.parse('recommend dishes for easter'.lc),
+        'recommend dishes for easter';
+
+## 14
+ok $pCOMMAND.parse('suggest a dish to cook'.lc),
         'suggest a dish to cook';
 
-ok $pCOMMAND.parse('suggest me courses'),
+## 15
+ok $pCOMMAND.parse('suggest me courses'.lc),
         'suggest me courses';
 
-ok $pCOMMAND.parse('tell me a few courses'),
+## 16
+ok $pCOMMAND.parse('tell me a few courses'.lc),
         'tell me a few courses';
 
-ok $pCOMMAND.parse('what to cook'),
+## 17
+ok $pCOMMAND.parse('what to cook'.lc),
         'what to cook';
 
 done-testing;
