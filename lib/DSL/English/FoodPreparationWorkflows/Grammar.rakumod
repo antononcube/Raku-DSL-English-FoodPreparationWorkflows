@@ -49,7 +49,7 @@ grammar DSL::English::FoodPreparationWorkflows::Grammar
         does DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand
         does DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases {
 
-    # TOP
+    # TOPa
     rule TOP {
         <pipeline-command> ||
         <ingredient-query-command> ||
@@ -59,17 +59,17 @@ grammar DSL::English::FoodPreparationWorkflows::Grammar
         <food-entity-command>
     }
 
-    rule love-food-entity-command { 'i' [ 'want' | 'crave' ] [ <food-name> | <drink-entity> | <take-out-entity> ] }
+    rule love-food-entity-command { 'i' [ 'want' | 'crave' ] [ <entity-food-name> | <drink-entity> | <take-out-entity> ] }
 
     rule location-spec { 'fridge' | 'refrigerator' | 'pantry' }
 
     rule cooking-food-entity-command {
-        'i' [ 'want' | 'plan' ] 'to' 'cook' <food-name> |
-        [ 'tell' 'me' | 'give' 'directions' ] 'how' 'to' 'cook' <food-name> |
-        'instruct' 'me' 'to' 'cook' <food-name>
+        'i' [ 'want' | 'plan' ] 'to' 'cook' <entity-food-name> |
+        [ 'tell' 'me' | 'give' 'directions' ] 'how' 'to' 'cook' <entity-food-name> |
+        'instruct' 'me' 'to' 'cook' <entity-food-name>
     }
 
-    rule food-entity-command { <food-name> }
+    rule food-entity-command { <entity-food-name> }
 
 }
 

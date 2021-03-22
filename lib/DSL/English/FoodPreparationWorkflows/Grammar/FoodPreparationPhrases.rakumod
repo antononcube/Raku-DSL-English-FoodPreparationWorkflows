@@ -5,14 +5,14 @@ use DSL::Shared::Roles::English::CommonSpeechParts;
 use DSL::Shared::Utilities::FuzzyMatching;
 
 use DSL::Entity::English::Foods::Grammar::FoodNames;
-use DSL::Entity::English::Geographics::Grammar::CountryNames;
-use DSL::Entity::English::Geographics::Grammar::CountryAdjectives;
+use DSL::Entity::English::Geographics::Grammar::EntityNames;
+use DSL::Entity::English::Geographics::Grammar::EntityAdjectives;
 
 # Food preparation specific phrases
 role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
         does DSL::Entity::English::Foods::Grammar::FoodNames
-        does DSL::Entity::English::Geographics::Grammar::CountryNames
-        does DSL::Entity::English::Geographics::Grammar::CountryAdjectives
+        does DSL::Entity::English::Geographics::Grammar::EntityNames
+        does DSL::Entity::English::Geographics::Grammar::EntityAdjectives
         does DSL::Shared::Roles::English::PipelineCommand {
 
     rule recommend-phrase {
@@ -59,7 +59,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
 
     ##-------------------------------------------------------
     rule food-cuisine-spec {
-        [ <country-name-known> | <country-adjective-known> | <local-adjective> ] [ <cuisine-noun> | <food-noun> | <kitchen-noun> ]?
+        [ <entity-country-name> | <entity-country-adjective> | <local-adjective> ] [ <cuisine-noun> | <food-noun> | <kitchen-noun> ]?
     }
 
     token cuisine-noun { 'cuisine' }

@@ -32,7 +32,7 @@ use v6;
 
 use DSL::English::FoodPreparationWorkflows::Grammar;
 use DSL::Shared::Actions::English::WL::PipelineCommand;
-use DSL::Entity::English::Foods::Grammar::FoodEntities;
+use DSL::Entity::English::Foods::Grammar::EntityNames;
 
 class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         is DSL::Shared::Actions::English::WL::PipelineCommand {
