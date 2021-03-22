@@ -49,7 +49,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     method location-spec($/) { make $.Str; }
 
     method recommendations-command($/) {
-        make 'smrSCS ==> SMRRecommend[] ==> SMRMonTakeValue[]';
+        make 'smrSCS ⟹ SMRRecommend[] ⟹ SMRMonTakeValue[]';
     }
 
     method recommendations-by-profile-command($/) {
@@ -67,7 +67,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
              @resProfile.append($<food-cuisine-spec>.made)
         }
 
-        make 'smrSCS ==> SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ==> SMRMonTakeValue[]';
+        make 'smrSCS ⟹ SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ⟹ SMRMonTakeValue[]';
     }
 
     method food-cuisine-spec($/) {
