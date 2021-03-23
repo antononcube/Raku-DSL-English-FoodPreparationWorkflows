@@ -59,7 +59,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
 
     ##-------------------------------------------------------
     rule food-cuisine-spec {
-        [ <entity-country-name> | <entity-country-adjective> | <local-adjective> ] [ <cuisine-noun> | <food-noun> | <kitchen-noun> ]?
+        [ <entity-country-name> | <entity-country-adjective> | <local-adjective> ] [ <.cuisine-noun> | <.food-noun> | <.kitchen-noun> ]?
     }
 
     token cuisine-noun { 'cuisine' }

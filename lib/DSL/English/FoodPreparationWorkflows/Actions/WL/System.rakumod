@@ -49,7 +49,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     method location-spec($/) { make $.Str; }
 
     method recommendations-command($/) {
-        make 'smrSCS ⟹ SMRRecommend[] ⟹ SMRMonTakeValue[]';
+        make 'smrSCS ==> SMRRecommend[] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
     }
 
     method recommendations-by-profile-command($/) {
@@ -67,11 +67,19 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
              @resProfile.append($<food-cuisine-spec>.made)
         }
 
-        make 'smrSCS ⟹ SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ⟹ SMRMonTakeValue[]';
+        make 'smrSCS ==> SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
+    }
+
+    method entity-country-adjective($/) {
+        make $/.Str.lc;
+    }
+
+    method entity-country-name($/) {
+        make $/.Str.lc;
     }
 
     method food-cuisine-spec($/) {
-        make '"Cuisine:' ~ $/.Str.trim.lc ~ '"';
+        make '"Cuisine:' ~ $/.values[0].made ~ '"';
     }
 
     method period-meal-spec($/) {

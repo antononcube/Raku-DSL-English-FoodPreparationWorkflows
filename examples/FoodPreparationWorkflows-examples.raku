@@ -57,6 +57,8 @@ say $pCOMMAND.parse('i want to eat protein and fat lunch' );
 
 say $pCOMMAND.subparse('tell me some low calorie dish suggestions' );
 
+say $pCOMMAND.subparse('i want to eat Greek food' );
+
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers', rule => 'classifier-ensemble-creation-command');
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers using 0.7 resampling', rule => 'classifier-ensemble-creation-command');
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers using 70 % resampling', rule => 'classifier-ensemble-creation-command');
@@ -69,6 +71,8 @@ say "=" x 60;
 my @testCommands = (
 'recommend a dish to cook',
 'i want to eat lunch from China',
+'i want to eat Chinese lunch',
+'i want to eat Greek food',
 'i want to eat protein and fat lunch'
 );
 
