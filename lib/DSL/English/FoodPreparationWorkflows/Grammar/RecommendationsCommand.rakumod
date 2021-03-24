@@ -3,9 +3,8 @@ use v6;
 role DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand {
 
     rule recommendations-command {
-        <.can-food-prep-word> <.sous-chef-spec> <.recommend-phrase> <.dishes-food-prep-word> <.with-preposition> <ingredient-spec-list> |
-        <.what-food-prep-word> <.to-preposition> <.cook-phrase> |
-        <.recommend-phrase> [ <a-determiner> | <the-determiner> | <several-phrase> ]? <.item-of-food-phrase> [ <.to-preposition> <cook-phrase> ]? [ <.for-preposition> <period-spec> ]?
+        <.can-food-prep-word> <.sous-chef-spec> <.recommend-phrase> <.item-of-food-phrase> <.with-preposition> <ingredient-spec-list> |
+        [ <.recommend-phrase> | <.what-food-prep-word> ] [ <a-determiner> | <the-determiner> | <several-phrase> ]? [ <.item-of-food-phrase> | <.recipe-phrase> ] [ <.to-preposition> <cook-phrase> ]? [ <.for-preposition> <period-spec> ]?
     }
 
     rule recommendations-by-profile-command {
@@ -19,7 +18,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand {
         <.user-be-phrase> <.feeling-food-prep-word> <.sick-food-prep-word> <recommend-phrase> <.me-food-prep-word>? <.a-determiner>? <item-of-food-phrase> |
         [ <recommend-phrase> | <tell-food-prep-word>  | <show-food-prep-word> ] <.me-food-prep-word>? <.a-determiner>? <.few-food-prep-word>? [
            <item-of-food-phrase> <.from-preposition> <food-cuisine-spec> |
-           [ <recipe-food-prep-word> | <item-of-food-phrase> ] [
+           [ <recipe-phrase> | <item-of-food-phrase> ] [
               <.from-preposition> <food-cuisine-spec> |
               <.with-preposition> <ingredient-spec-list> ] |
            <some-food-prep-word>? [ <food-cuisine-spec> | <ingredient-spec-list> ] [ <recipe-food-prep-word> | <item-of-food-phrase> <.recommendations-phrase>? | <recommendations-phrase> ] |
