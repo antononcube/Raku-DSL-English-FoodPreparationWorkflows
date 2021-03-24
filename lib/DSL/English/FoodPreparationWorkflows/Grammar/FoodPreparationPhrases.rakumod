@@ -22,9 +22,15 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     rule recommendations-phrase {
         <recommendations-food-prep-word>       | <suggestions-food-prep-word>
     }
+
+    ##-------------------------------------------------------
+    rule recipe-phrase {
+        <recipe-food-prep-word> | <recipes-food-prep-word>
+    }
+
     ##-------------------------------------------------------
     rule item-of-food-phrase {
-        <course-phrase>          | <dish-phrase>
+        <course-phrase> | <dish-phrase>
     }
 
     token course-phrase {
@@ -59,7 +65,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
 
     ##-------------------------------------------------------
     rule food-cuisine-spec {
-        [ <entity-country-name> | <entity-country-adjective> | <local-adjective> ] [ <.cuisine-noun> | <.food-noun> | <.kitchen-noun> ]?
+        [ <entity-country-name> | <entity-country-adjective> | <entity-region-name> | <entity-region-adjective> | <local-adjective> ] [ <.cuisine-noun> | <.food-noun> | <.kitchen-noun> ]?
     }
 
     token cuisine-noun { 'cuisine' }
