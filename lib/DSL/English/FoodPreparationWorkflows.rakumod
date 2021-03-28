@@ -52,7 +52,7 @@ multi ToFoodPreparationWorkflowCode ( Str $command where not has-semicolon($comm
 
     die 'Unknown target.' unless %targetToAction{$target}:exists;
 
-    my $match = DSL::English::FoodPreparationWorkflows::Grammar.parse($command.trim, actions => %targetToAction{$target} );
+    my $match = DSL::English::FoodPreparationWorkflows::Grammar.parse($command.trim.lc, actions => %targetToAction{$target} );
     die 'Cannot parse the given command.' unless $match;
     return $match.made;
 }

@@ -130,11 +130,16 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
 
     rule to-eat-pharse { <to-preposition> <eat-food-prep-word> | <to-preposition> <get-verb> }
 
+    rule allergic-reaction-phrase { <allergic-food-prep-word> [ <reaction-food-prep-word> | <complications-food-prep-word> | <complication-food-prep-word> ] }
+
     ##-------------------------------------------------------
     ## General tokens
+    token allergic-food-prep-word { 'allergic' }
     token am-food-prep-word { 'am' }
     token are-food-prep-word { 'are' }
     token can-food-prep-word { 'can' }
+    token complication-food-prep-word { 'complication' }
+    token complications-food-prep-word { 'complications' }
     token component-food-prep-word { 'component' }
     token contain-food-prep-word { 'contain' }
     token cook-food-prep-word { 'cook' }
@@ -149,6 +154,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token experiment-food-prep-word { 'experiment' }
     token feeling-food-prep-word { 'feeling' }
     token few-food-prep-word { 'few' }
+    token food-food-prep-word { 'food' }
     token had-food-prep-word { 'had' }
     token have-food-prep-word { 'have' }
     token how-food-prep-word { 'how' }
@@ -174,6 +180,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token often-food-prep-word { 'often' }
     token part-food-prep-word { 'part' }
     token prepare-food-prep-word { 'prepare' }
+    token reaction-food-prep-word { 'reaction' }
     token recipe-food-prep-word { 'recipe' }
     token recipes-food-prep-word { 'recipes' }
     token recommend-food-prep-word { 'recommend' }
@@ -190,7 +197,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token time-food-prep-word { 'time' }
     token times-food-prep-word { 'times' }
     token try-food-prep-word { 'try' }
-    token want-food-prep-word { 'want' }
+    token want-food-prep-word { 'want' | 'wants' }
     token was-food-prep-word { 'was' }
     token we-food-prep-word { 'we' }
     token what-food-prep-word { 'what' }
