@@ -103,6 +103,12 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token noon-noun { 'noon' }
 
     ##-------------------------------------------------------
+    rule mixed-food-spec-list {
+        <food-cuisine-spec> <ingredient-spec-list> |
+        <ingredient-spec-list> <food-cuisine-spec> |
+        [ <food-cuisine-spec> | <ingredient-spec-list> ]+ % <.list-separator> }
+
+    ##-------------------------------------------------------
     ## General rules
     rule several-phrase {
         <a-determiner>? <few-food-prep-word> |
@@ -134,75 +140,75 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
 
     ##-------------------------------------------------------
     ## General tokens
-    token allergic-food-prep-word { 'allergic' }
-    token am-food-prep-word { 'am' }
-    token are-food-prep-word { 'are' }
-    token can-food-prep-word { 'can' }
-    token complication-food-prep-word { 'complication' }
-    token complications-food-prep-word { 'complications' }
-    token component-food-prep-word { 'component' }
-    token contain-food-prep-word { 'contain' }
-    token cook-food-prep-word { 'cook' }
-    token cooked-food-prep-word { 'cooked' }
-    token course-food-prep-word { 'course' }
-    token courses-food-prep-word { 'courses' }
-    token dish-food-prep-word { 'dish' }
-    token dishes-food-prep-word { 'dishes' }
-    token do-food-prep-word { 'do' }
-    token eat-food-prep-word { 'eat' }
-    token element-food-prep-word { 'element' }
-    token experiment-food-prep-word { 'experiment' }
-    token feeling-food-prep-word { 'feeling' }
-    token few-food-prep-word { 'few' }
-    token food-food-prep-word { 'food' }
-    token had-food-prep-word { 'had' }
-    token have-food-prep-word { 'have' }
-    token how-food-prep-word { 'how' }
-    token i-food-prep-word { 'i' }
-    token im-food-prep-word { 'im' }
-    token ingredient-food-prep-word { 'ingredient' }
-    token ingredients-food-prep-word { 'ingredients' }
-    token interesting-food-prep-word { 'interesting' }
-    token kind-food-prep-word { 'kind' }
-    token know-food-prep-word { 'know' }
-    token last-food-prep-word { 'last' }
-    token light-food-prep-word { 'light' }
-    token local-food-prep-word { 'local' }
-    token lowcarb-food-prep-word { 'lowcarb' }
-    token lunch-food-prep-word { 'lunch' }
-    token make-food-prep-word { 'make' }
-    token many-food-prep-word { 'many' }
-    token me-food-prep-word { 'me' }
-    token mood-food-prep-word { 'mood' }
-    token most-food-prep-word { 'most' }
-    token new-food-prep-word { 'new' }
-    token number-food-prep-word { 'number' }
-    token often-food-prep-word { 'often' }
-    token part-food-prep-word { 'part' }
-    token prepare-food-prep-word { 'prepare' }
-    token reaction-food-prep-word { 'reaction' }
-    token recipe-food-prep-word { 'recipe' }
-    token recipes-food-prep-word { 'recipes' }
-    token recommend-food-prep-word { 'recommend' }
-    token recommendations-food-prep-word { 'recommendations' }
-    token several-food-prep-word { 'several' }
-    token show-food-prep-word { 'show' }
-    token sick-food-prep-word { 'sick' }
-    token snack-food-prep-word { 'snack' }
-    token some-food-prep-word { 'some' }
-    token something-food-prep-word { 'something' }
-    token suggest-food-prep-word { 'suggest' }
-    token suggestions-food-prep-word { 'suggestions' }
-    token tell-food-prep-word { 'tell' }
-    token time-food-prep-word { 'time' }
-    token times-food-prep-word { 'times' }
-    token try-food-prep-word { 'try' }
-    token want-food-prep-word { 'want' | 'wants' }
-    token was-food-prep-word { 'was' }
-    token we-food-prep-word { 'we' }
-    token what-food-prep-word { 'what' }
-    token when-food-prep-word { 'when' }
-    token with-food-prep-word { 'with' }
-    token year-food-prep-word { 'year' }
-    token you-food-prep-word { 'you' }
+    token allergic-food-prep-word { :i 'allergic' }
+    token am-food-prep-word { :i 'am' }
+    token are-food-prep-word { :i 'are' }
+    token can-food-prep-word { :i 'can' }
+    token complication-food-prep-word { :i 'complication' }
+    token complications-food-prep-word { :i 'complications' }
+    token component-food-prep-word { :i 'component' }
+    token contain-food-prep-word { :i 'contain' }
+    token cook-food-prep-word { :i 'cook' }
+    token cooked-food-prep-word { :i 'cooked' }
+    token course-food-prep-word { :i 'course' }
+    token courses-food-prep-word { :i 'courses' }
+    token dish-food-prep-word { :i 'dish' }
+    token dishes-food-prep-word { :i 'dishes' }
+    token do-food-prep-word { :i 'do' }
+    token eat-food-prep-word { :i 'eat' }
+    token element-food-prep-word { :i 'element' }
+    token experiment-food-prep-word { :i 'experiment' }
+    token feeling-food-prep-word { :i 'feeling' }
+    token few-food-prep-word { :i 'few' }
+    token food-food-prep-word { :i 'food' }
+    token had-food-prep-word { :i 'had' }
+    token have-food-prep-word { :i 'have' }
+    token how-food-prep-word { :i 'how' }
+    token i-food-prep-word { :i 'i' }
+    token im-food-prep-word { :i 'im' }
+    token ingredient-food-prep-word { :i 'ingredient' }
+    token ingredients-food-prep-word { :i 'ingredients' }
+    token interesting-food-prep-word { :i 'interesting' }
+    token kind-food-prep-word { :i 'kind' }
+    token know-food-prep-word { :i 'know' }
+    token last-food-prep-word { :i 'last' }
+    token light-food-prep-word { :i 'light' }
+    token local-food-prep-word { :i 'local' }
+    token lowcarb-food-prep-word { :i 'lowcarb' }
+    token lunch-food-prep-word { :i 'lunch' }
+    token make-food-prep-word { :i 'make' }
+    token many-food-prep-word { :i 'many' }
+    token me-food-prep-word { :i 'me' }
+    token mood-food-prep-word { :i 'mood' }
+    token most-food-prep-word { :i 'most' }
+    token new-food-prep-word { :i 'new' }
+    token number-food-prep-word { :i 'number' }
+    token often-food-prep-word { :i 'often' }
+    token part-food-prep-word { :i 'part' }
+    token prepare-food-prep-word { :i 'prepare' }
+    token reaction-food-prep-word { :i 'reaction' }
+    token recipe-food-prep-word { :i 'recipe' }
+    token recipes-food-prep-word { :i 'recipes' }
+    token recommend-food-prep-word { :i 'recommend' }
+    token recommendations-food-prep-word { :i 'recommendations' }
+    token several-food-prep-word { :i 'several' }
+    token show-food-prep-word { :i 'show' }
+    token sick-food-prep-word { :i 'sick' }
+    token snack-food-prep-word { :i 'snack' }
+    token some-food-prep-word { :i 'some' }
+    token something-food-prep-word { :i 'something' }
+    token suggest-food-prep-word { :i 'suggest' }
+    token suggestions-food-prep-word { :i 'suggestions' }
+    token tell-food-prep-word { :i 'tell' }
+    token time-food-prep-word { :i 'time' }
+    token times-food-prep-word { :i 'times' }
+    token try-food-prep-word { :i 'try' }
+    token want-food-prep-word { :i 'want' | 'wants' }
+    token was-food-prep-word { :i 'was' }
+    token we-food-prep-word { :i 'we' }
+    token what-food-prep-word { :i 'what' }
+    token when-food-prep-word { :i 'when' }
+    token with-food-prep-word { :i 'with' }
+    token year-food-prep-word { :i 'year' }
+    token you-food-prep-word { :i 'you' }
 }
