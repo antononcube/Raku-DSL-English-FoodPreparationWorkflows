@@ -9,7 +9,7 @@ interpretation of natural language commands that specify classification workflow
 =head1 Synopsis
 
     use DSL::English::FoodPreparationWorkflows;
-    my $rcode = ToFoodPreparationWorkflowCode('use dfTitanic; split data in training and testing parts with ratio 0.7; make a classifier; show roc curves');
+    my $rcode = ToFoodPreparationWorkflowCode('i want to eat Chinese food');
 
 =end pod
 
