@@ -51,29 +51,41 @@ my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 #say $pCOMMAND.parse('recommend a recipe from China' );
 #
 
-say $pCOMMAND.parse('recommend a dish to cook' );
-
-say $pCOMMAND.parse('i want to eat protein and fat lunch' );
-
-say $pCOMMAND.subparse('tell me some low calorie dish suggestions' );
-
-say $pCOMMAND.subparse('i want to eat Greek food' );
+#say $pCOMMAND.parse('recommend a dish to cook' );
+#
+#say $pCOMMAND.parse('i want to eat protein, carbs, and fat lunch' );
+#
+#say $pCOMMAND.subparse('tell me some low calorie dish suggestions' );
+#
+#say $pCOMMAND.subparse('what do we eat for christmas lunch' );
+#
+#say $pCOMMAND.subparse('we want to eat without allergic complications' );
+#
+#say $pCOMMAND.subparse('i wants to eat food without allergic reaction' );
+#
+#say $pCOMMAND.subparse('I want to eat a protein and fat Chinese lunch' );
+#
+#say $pCOMMAND.subparse('I want to eat Chinese and fat lunch' );
 
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers', rule => 'classifier-ensemble-creation-command');
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers using 0.7 resampling', rule => 'classifier-ensemble-creation-command');
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers using 70 % resampling', rule => 'classifier-ensemble-creation-command');
 #say $pCOMMAND.subparse( 'split data with ratio 0.8 and with label proportional method');
 
-#
+
 say "=" x 60;
 
 
 my @testCommands = (
 'recommend a dish to cook',
+'recommend a recipe to cook',
 'i want to eat lunch from China',
-'i want to eat Chinese lunch',
-'i want to eat Greek food',
-'i want to eat protein and fat lunch'
+'I want to eat a Chinese lunch',
+'I want to eat protein and fat lunch',
+'I want to eat Greek protein and fat lunch',
+'I wants to eat food without allergic reaction',
+'What do we eat for Christmas lunch',
+'What did we eat in the last two weeks'
 );
 
 
