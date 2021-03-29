@@ -34,6 +34,9 @@ use DSL::English::FoodPreparationWorkflows::Grammar;
 use DSL::Shared::Actions::English::WL::PipelineCommand;
 use DSL::Entity::English::Foods::Grammar::EntityNames;
 
+use DSL::English::RecommenderWorkflows::Grammar;
+
+
 class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         is DSL::Shared::Actions::English::WL::PipelineCommand {
 
@@ -47,6 +50,10 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         make 'Total[dsInvetory[Select[#Name == "' ~ $<food-entity> ~ '" && #Location == "' ~ $<location> ~'" &]][All,Quantity"]]';
     }
     method location-spec($/) { make $.Str; }
+
+    method introspection-query-command($/) {
+        die 'introspection-query-command:: Not implemented yet !!!';
+    }
 
     method recommendations-command($/) {
         make 'smrSCS ==> SMRRecommend[] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
@@ -63,10 +70,11 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
              @resProfile.append($<period-meal-spec>.made)
         }
 
-        if $<food-cuisine-spec> {
-             @resProfile.append($<food-cuisine-spec>.made)
+        if $<mixed-food-spec-list> {
+             @resProfile.append($<mixed-food-spec-list>.made)
         }
 
+        #make to_DSL_code('USE TARGET SMRMon-R; use smrSCS; recommend by profile ' ~ @resProfile.join(', ') ~ '; echo pipeline value;');
         make 'smrSCS ==> SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
     }
 
@@ -84,6 +92,10 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
 
     method period-meal-spec($/) {
         make '"PeriodMeal:' ~ $/.Str.trim.lc ~ '"';
+    }
+
+    method mixed-food-spec-list($/) {
+        make $/.values>>.made.flat;
     }
 
     method food-quality-spec($/) {
