@@ -57,7 +57,7 @@ my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 #
 #say $pCOMMAND.subparse('tell me some low calorie dish suggestions' );
 #
-#say $pCOMMAND.subparse('what do we eat for christmas lunch' );
+say $pCOMMAND.parse('what do we eat for christmas lunch' );
 #
 #say $pCOMMAND.subparse('we want to eat without allergic complications' );
 #
@@ -72,24 +72,24 @@ my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 #say $pCOMMAND.parse( 'create classifier ensemble with 5 of RandomForest classifiers using 70 % resampling', rule => 'classifier-ensemble-creation-command');
 #say $pCOMMAND.subparse( 'split data with ratio 0.8 and with label proportional method');
 
-
+#
 say "=" x 60;
-
-
+#
+#
 my @testCommands = (
 'recommend a dish to cook',
 'recommend a recipe to cook',
 'i want to eat lunch from China',
 'I want to eat a Chinese lunch',
 'I want to eat protein and fat lunch',
-'I want to eat Greek protein and fat lunch',
-'I wants to eat food without allergic reaction',
-'What do we eat for Christmas lunch',
-'What did we eat in the last two weeks'
+'USER ID mamaJo32; I want to eat Greek protein and fat lunch'
+#'I wants to eat food without allergic reaction',
+#'What do we eat for Christmas lunch',
+#'What did we eat in the last two weeks'
 );
-
-
-my @targets = ('WL-System');
+#
+#
+my @targets = ('Bulgarian');
 
 for @testCommands -> $c {
     say "=" x 30;
