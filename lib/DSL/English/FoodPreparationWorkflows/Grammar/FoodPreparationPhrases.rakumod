@@ -141,43 +141,43 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token complications-food-prep-word { :i 'complications' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'complications') }> }
     token component-food-prep-word { :i 'component' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'component') }> }
     token contain-food-prep-word { :i 'contain' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'contain') }> }
-    token cook-food-prep-word { :i 'cook' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'cook') }> }
+    token cook-food-prep-word { :i 'cook' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'cook', 1) }> }
     token cooked-food-prep-word { :i 'cooked' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'cooked') }> }
     token course-food-prep-word { :i 'course' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'course') }> }
     token courses-food-prep-word { :i 'courses' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'courses') }> }
-    token dish-food-prep-word { :i 'dish' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'dish') }> }
+    token dish-food-prep-word { :i 'dish' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'dish', 1) }> }
     token dishes-food-prep-word { :i 'dishes' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'dishes') }> }
     token do-food-prep-word { :i 'do' }
-    token eat-food-prep-word { :i 'eat' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'eat') }> }
+    token eat-food-prep-word { :i 'eat' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'eat', 1) }> }
     token element-food-prep-word { :i 'element' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'element') }> }
     token experiment-food-prep-word { :i 'experiment' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'experiment') }> }
     token feeling-food-prep-word { :i 'feeling' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'feeling') }> }
-    token few-food-prep-word { :i 'few' | ([\w]+) <?{ $0.Str ne 'new' and is-fuzzy-match( $0.Str, 'few') }> }
+    token few-food-prep-word { :i 'few' | ([\w]+) <?{ $0.Str ne 'new' and is-fuzzy-match( $0.Str, 'few', 1) }> }
     token food-food-prep-word { :i 'food' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'food') }> }
-    token had-food-prep-word { :i 'had' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'had') }> }
-    token have-food-prep-word { :i 'have' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'have') }> }
-    token how-food-prep-word { :i 'how' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'how') }> }
+    token had-food-prep-word { :i 'had' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'had', 1) }> }
+    token have-food-prep-word { :i 'have' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'have', 1) }> }
+    token how-food-prep-word { :i 'how' | ([\w]+) <?{ $0.Str ne 'show' and is-fuzzy-match( $0.Str, 'how', 1) }> }
     token i-food-prep-word { :i 'i' }
     token im-food-prep-word { :i 'im' | 'i\'m' }
     token ingredient-food-prep-word { :i 'ingredient' | ([\w]+) <?{ $0.Str ne 'ingredients' and is-fuzzy-match( $0.Str, 'ingredient') }> }
     token ingredients-food-prep-word { :i 'ingredients' | ([\w]+) <?{ $0.Str ne 'ingredient' and is-fuzzy-match( $0.Str, 'ingredients') }> }
     token interesting-food-prep-word { :i 'interesting' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'interesting') }> }
-    token kind-food-prep-word { :i 'kind' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'kind') }> }
-    token know-food-prep-word { :i 'know' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'know') }> }
-    token last-food-prep-word { :i 'last' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'last') }> }
+    token kind-food-prep-word { :i 'kind' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'kind', 1) }> }
+    token know-food-prep-word { :i 'know' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'know', 1) }> }
+    token last-food-prep-word { :i 'last' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'last', 1) }> }
     token light-food-prep-word { :i 'light' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'light') }> }
     token local-food-prep-word { :i 'local' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'local') }> }
     token lowcarb-food-prep-word { :i 'lowcarb' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'lowcarb') }> }
     token lunch-food-prep-word { :i 'lunch' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'lunch') }> }
-    token make-food-prep-word { :i 'make' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'make') }> }
-    token many-food-prep-word { :i 'many' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'many') }> }
+    token make-food-prep-word { :i 'make' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'make', 1) }> }
+    token many-food-prep-word { :i 'many' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'many', 1) }> }
     token me-food-prep-word { :i 'me' }
-    token mood-food-prep-word { :i 'mood' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'mood') }> }
-    token most-food-prep-word { :i 'most' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'most') }> }
-    token new-food-prep-word { :i 'new' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'new') }> }
+    token mood-food-prep-word { :i 'mood' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'mood', 1) }> }
+    token most-food-prep-word { :i 'most' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'most', 1) }> }
+    token new-food-prep-word { :i 'new' | ([\w]+) <?{ $0.Str ne 'few' and is-fuzzy-match( $0.Str, 'new', 1) }> }
     token number-food-prep-word { :i 'number' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'number') }> }
     token often-food-prep-word { :i 'often' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'often') }> }
-    token part-food-prep-word { :i 'part' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'part') }> }
+    token part-food-prep-word { :i 'part' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'part', 1) }> }
     token prepare-food-prep-word { :i 'prepare' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'prepare') }> }
     token reaction-food-prep-word { :i 'reaction' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'reaction') }> }
     token recipe-food-prep-word { :i 'recipe' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'recipe') }> }
@@ -185,23 +185,23 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token recommend-food-prep-word { :i 'recommend' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'recommend') }> }
     token recommendations-food-prep-word { :i 'recommendations' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'recommendations') }> }
     token several-food-prep-word { :i 'several' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'several') }> }
-    token show-food-prep-word { :i 'show' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'show') }> }
-    token sick-food-prep-word { :i 'sick' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'sick') }> }
+    token show-food-prep-word { :i 'show' | ([\w]+) <?{ $0.Str ne 'how' and is-fuzzy-match( $0.Str, 'show', 1) }> }
+    token sick-food-prep-word { :i 'sick' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'sick', 1) }> }
     token snack-food-prep-word { :i 'snack' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'snack') }> }
-    token some-food-prep-word { :i 'some' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'some') }> }
+    token some-food-prep-word { :i 'some' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'some', 1) }> }
     token something-food-prep-word { :i 'something' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'something') }> }
     token suggest-food-prep-word { :i 'suggest' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'suggest') }> }
     token suggestions-food-prep-word { :i 'suggestions' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'suggestions') }> }
-    token tell-food-prep-word { :i 'tell' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'tell') }> }
-    token time-food-prep-word { :i 'time' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'time') }> }
+    token tell-food-prep-word { :i 'tell' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'tell', 1) }> }
+    token time-food-prep-word { :i 'time' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'time', 1) }> }
     token times-food-prep-word { :i 'times' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'times') }> }
-    token try-food-prep-word { :i 'try' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'try') }> }
-    token want-food-prep-word { :i 'want' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'want') }> | 'wants' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'wants') }> }
-    token was-food-prep-word { :i 'was' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'was') }> }
-    token we-food-prep-word { :i 'we' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'we') }> }
-    token what-food-prep-word { :i 'what' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'what') }> }
-    token when-food-prep-word { :i 'when' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'when') }> }
+    token try-food-prep-word { :i 'try' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'try', 1) }> }
+    token want-food-prep-word { :i 'want' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'want', 1) }> | 'wants' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'wants') }> }
+    token was-food-prep-word { :i 'was' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'was', 1) }> }
+    token we-food-prep-word { :i 'we' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'we', 1) }> }
+    token what-food-prep-word { :i 'what' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'what', 1) }> }
+    token when-food-prep-word { :i 'when' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'when', 1) }> }
     token with-food-prep-word { :i 'with' }
-    token year-food-prep-word { :i 'year' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'year') }> }
-    token you-food-prep-word { :i 'you' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'you') }> }
+    token year-food-prep-word { :i 'year' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'year', 1) }> }
+    token you-food-prep-word { :i 'you' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'you', 1) }> }
 }
