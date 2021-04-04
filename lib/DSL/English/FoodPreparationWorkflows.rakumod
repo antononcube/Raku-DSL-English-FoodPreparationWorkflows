@@ -46,22 +46,26 @@ sub has-semicolon (Str $word) {
 }
 
 #-----------------------------------------------------------
-proto ToFoodPreparationWorkflowCode(Str $command, Str $target = 'tidyverse' ) is export {*}
+proto ToFoodPreparationWorkflowCode(Str $command, Str $target = 'WL-System', Str :$userID = '' ) is export {*}
 
-multi ToFoodPreparationWorkflowCode ( Str $command where not has-semicolon($command), Str $target = 'WL-ClCon' ) {
+multi ToFoodPreparationWorkflowCode ( Str $command where not has-semicolon($command), Str $target = 'WL-System', Str :$userID = '' ) {
 
     die 'Unknown target.' unless %targetToAction{$target}:exists;
 
-    my $match = DSL::English::FoodPreparationWorkflows::Grammar.parse($command.trim.lc, actions => %targetToAction{$target} );
+    my $action = %targetToAction{$target}.new(:$userID);
+
+    my $match = DSL::English::FoodPreparationWorkflows::Grammar.parse($command.trim, actions => $action );
     die 'Cannot parse the given command.' unless $match;
     return $match.made;
 }
 
-multi ToFoodPreparationWorkflowCode ( Str $command where has-semicolon($command), Str $target = 'WL-ClCon' ) {
+multi ToFoodPreparationWorkflowCode ( Str $command where has-semicolon($command), Str $target = 'WL-System', Str :$userID = '' ) {
 
     my $specTarget = get-dsl-spec( $command, 'target');
+    my $specUserID = get-user-spec( $command, 'user-id');
 
     $specTarget = $specTarget ?? $specTarget<DSLTARGET> !! $target;
+    $specUserID = $specUserID ?? $specUserID<USERID> !! $userID;
 
     die 'Unknown target.' unless %targetToAction{$specTarget}:exists;
 
@@ -69,7 +73,7 @@ multi ToFoodPreparationWorkflowCode ( Str $command where has-semicolon($command)
 
     @commandLines = grep { $_.Str.chars > 0 }, @commandLines;
 
-    my @cmdLines = map { ToFoodPreparationWorkflowCode($_, $specTarget) }, @commandLines;
+    my @cmdLines = map { ToFoodPreparationWorkflowCode($_, $specTarget, userID => $specUserID) }, @commandLines;
 
     @cmdLines = grep { $_.^name eq 'Str' }, @cmdLines;
 
