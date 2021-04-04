@@ -32,8 +32,4 @@ like ToFoodPreparationWorkflowCode('USER ID NONE; recommend dishes to cook', use
 
 like ToFoodPreparationWorkflowCode('USER ID NULL; recommend dishes to cook', userID => 'harzaGa22' ), / .* 'UserID:harzaGa22' .* /;
 
-unlike ToFoodPreparationWorkflowCode('USER ID NONE; recommend dishes to cook' ), / .* 'UserID:NONE' .* /;
-
-unlike ToFoodPreparationWorkflowCode('USER ID NULL; recommend dishes to cook' ), / .* 'UserID:NULL' .* /;
-
 done-testing;
