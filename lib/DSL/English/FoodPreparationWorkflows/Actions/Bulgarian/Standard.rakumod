@@ -29,20 +29,97 @@
 =end comment
 
 use v6;
+
 use DSL::English::FoodPreparationWorkflows::Grammar;
-
 use DSL::Shared::Actions::English::WL::PipelineCommand;
-use DSL::Shared::Actions::CommonStructures;
+use DSL::Entity::English::Foods::Grammar::EntityNames;
 
-unit module DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard;
+use DSL::English::RecommenderWorkflows::Grammar;
+
 
 class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
-        is DSL::Shared::Actions::CommonStructures {
+        is DSL::Shared::Actions::English::WL::PipelineCommand {
 
-    # method TOP($/) { make $/.values[0].made; }
+    has Str $.userID;
 
-    method TOP($/) {
-        make 'Not implemented.';
+    method makeUserIDTag() {
+        $.userID.chars > 0 ?? '"' ~ $.userID ~ '"' !! '';
     }
 
+    method TOP($/) { make $/.values[0].made; }
+
+    #method TOP($/) { make 'Not implemented.'; }
+
+    method data-query-command($/)  {
+        make $.Str;
+        # make 'SELECT Sum(Quantity) FROM inventory WHERE Name == ' ~ $<food-entity> ~ ' AND Location == ' ~ $<location-spec>;
+        make 'Total[dsInvetory[Select[#Name == "' ~ $<food-entity> ~ '" && #Location == "' ~ $<location> ~'" &]][All,Quantity"]]';
+    }
+    method location-spec($/) { make $.Str; }
+
+    method introspection-query-command($/) {
+        die 'introspection-query-command:: Не е имплементирано !!!';
+    }
+
+    method ingredient-query-command($/) {
+        die 'ingredient-query-command:: Не е имплементирано !!!';
+    }
+
+    method recommendations-command($/) {
+        make 'Препоръчай ястия, храни или рецепти' ~ ($.userID.chars > 0 ?? ' за потребителя ' ~ self.makeUserIDTag() !! '');
+    }
+
+    method recommendations-by-profile-command($/) {
+        my Str @resProfile;
+
+        if $<food-quality-spec> {
+             @resProfile.append($<food-quality-spec>.made)
+        }
+
+        if $<period-meal-spec> {
+             @resProfile.append($<period-meal-spec>.made)
+        }
+
+        if $<mixed-food-spec-list> {
+             @resProfile.append($<mixed-food-spec-list>.made)
+        }
+
+        if $.userID.chars > 0 {
+            make 'За потребителя ' ~ self.makeUserIDTag()~ ' препоръчай ястия, храни или рецепти, които изпълняват условията: ' ~ @resProfile.join(', ');
+        } else {
+            make 'Препоръчай ястия, храни или рецепти, които изпълняват условията: ' ~ @resProfile.join(', ');
+        }
+    }
+
+    method entity-country-adjective($/) {
+        make $/.Str.lc;
+    }
+
+    method entity-country-name($/) {
+        make $/.Str.lc;
+    }
+
+    method food-cuisine-spec($/) {
+        make 'Кухнята е "' ~ $/.values[0].made ~ '"';
+    }
+
+    method period-meal-spec($/) {
+        make 'Времето на хранене е "' ~ $/.Str.trim.lc ~ '"';
+    }
+
+    method mixed-food-spec-list($/) {
+        make $/.values>>.made.flat;
+    }
+
+    method food-quality-spec($/) {
+        make $/.values[0].made;
+    }
+
+    method ingredient-spec-list($/) {
+        make 'Съставките включват: ' ~ $/.values>>.made.join(', ');
+    }
+
+    method ingredient-spec($/) {
+        make $/.Str.trim.lc;
+    }
 }
