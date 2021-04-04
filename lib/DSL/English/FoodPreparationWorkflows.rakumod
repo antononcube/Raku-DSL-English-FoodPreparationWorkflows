@@ -65,7 +65,7 @@ multi ToFoodPreparationWorkflowCode ( Str $command where has-semicolon($command)
     my $specUserID = get-user-spec( $command, 'user-id');
 
     $specTarget = $specTarget ?? $specTarget<DSLTARGET> !! $target;
-    $specUserID = $specUserID ?? $specUserID<USERID> !! $userID;
+    $specUserID = ($specUserID and $specUserID<USERID> !(elem) <NONE NULL>) ?? $specUserID<USERID> !! $userID;
 
     die 'Unknown target.' unless %targetToAction{$specTarget}:exists;
 

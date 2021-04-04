@@ -43,7 +43,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     has Str $.userID;
 
     method makeUserIDTag() {
-        $.userID.chars > 0 ?? '"UserID:' ~ $.userID ~ '"' !! '';
+        ($.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"UserID:' ~ $.userID ~ '"';
     }
 
     method TOP($/) { make $/.values[0].made; }
@@ -84,7 +84,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
              @resProfile.append($<mixed-food-spec-list>.made)
         }
 
-        if $.userID.chars > 0 {
+        if self.makeUserIDTag().chars > 0 {
             @resProfile = @resProfile.append(self.makeUserIDTag())
         }
 

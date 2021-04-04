@@ -43,7 +43,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
     has Str $.userID;
 
     method makeUserIDTag() {
-        $.userID.chars > 0 ?? '"' ~ $.userID ~ '"' !! '';
+        ($.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"' ~ $.userID ~ '"';
     }
 
     method TOP($/) { make $/.values[0].made; }
@@ -84,8 +84,8 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
              @resProfile.append($<mixed-food-spec-list>.made)
         }
 
-        if $.userID.chars > 0 {
-            make 'За потребителя ' ~ self.makeUserIDTag()~ ' препоръчай ястия, храни или рецепти, които изпълняват условията: ' ~ @resProfile.join(', ');
+        if self.makeUserIDTag().chars > 0 {
+            make 'За потребителя ' ~ self.makeUserIDTag() ~ ' препоръчай ястия, храни или рецепти, които изпълняват условията: ' ~ @resProfile.join(', ');
         } else {
             make 'Препоръчай ястия, храни или рецепти, които изпълняват условията: ' ~ @resProfile.join(', ');
         }
@@ -120,6 +120,6 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
     }
 
     method ingredient-spec($/) {
-        make $/.Str.trim.lc;
+        make '"' ~ $/.Str.trim.lc ~ '"';
     }
 }
