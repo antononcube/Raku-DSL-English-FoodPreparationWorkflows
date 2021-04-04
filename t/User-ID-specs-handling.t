@@ -7,7 +7,7 @@ use Test;
 ## User ID specs handling
 ##===========================================================
 
-plan 10;
+plan 12;
 
 ok ToFoodPreparationWorkflowCode('USER ID 949-444-323; I want to eat protein and fat lunch'),
         'USER ID 949-444-323; I want to eat protein and fat lunch';
@@ -31,5 +31,9 @@ unlike ToFoodPreparationWorkflowCode('USER ID marekGram88; recommend dishes to c
 like ToFoodPreparationWorkflowCode('USER ID NONE; recommend dishes to cook', userID => 'harzaGa22' ), / .* 'UserID:harzaGa22' .* /;
 
 like ToFoodPreparationWorkflowCode('USER ID NULL; recommend dishes to cook', userID => 'harzaGa22' ), / .* 'UserID:harzaGa22' .* /;
+
+unlike ToFoodPreparationWorkflowCode('USER ID NONE; recommend dishes to cook' ), / .* 'UserID:NONE' .* /;
+
+unlike ToFoodPreparationWorkflowCode('USER ID NULL; recommend dishes to cook' ), / .* 'UserID:NULL' .* /;
 
 done-testing;
