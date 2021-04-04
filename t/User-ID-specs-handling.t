@@ -7,13 +7,19 @@ use Test;
 ## User ID specs handling
 ##===========================================================
 
-plan 12;
+plan 13;
+
+unlike ToFoodPreparationWorkflowCode('recommend dishes to cook'), / .* 'UserID' .* /;
+
+like ToFoodPreparationWorkflowCode('recommend dishes to cook', userID => '787-89-jjd'), / .* 'UserID:787-89-jjd' .* /;
+
+like ToFoodPreparationWorkflowCode('recommend dishes to cook', userID => '787_89.jjd-88'), / .* 'UserID:787_89.jjd-88' .* /;
 
 ok ToFoodPreparationWorkflowCode('USER ID 949-444-323; I want to eat protein and fat lunch'),
         'USER ID 949-444-323; I want to eat protein and fat lunch';
 
-ok ToFoodPreparationWorkflowCode('USER ID 949-444-323; I want to eat Greek protein and fat lunch'),
-        'USER ID 949-444-323; I want to eat Greek protein and fat lunch';
+ok ToFoodPreparationWorkflowCode('USER ID 787_89.jjd-88; I want to eat Greek protein and fat lunch'),
+        'USER ID 787_89.jjd-88; I want to eat Greek protein and fat lunch';
 
 ok ToFoodPreparationWorkflowCode('USER ID mamaJioe94; recommend dishes to cook'),
         'USER ID mamaJioe94; recommend dishes to cook';
