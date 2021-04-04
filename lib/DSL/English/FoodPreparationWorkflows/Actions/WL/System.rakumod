@@ -40,6 +40,12 @@ use DSL::English::RecommenderWorkflows::Grammar;
 class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         is DSL::Shared::Actions::English::WL::PipelineCommand {
 
+    has Str $.userID;
+
+    method makeUserIDTag() {
+        $.userID.chars > 0 ?? '"UserID:' ~ $.userID ~ '"' !! '';
+    }
+
     method TOP($/) { make $/.values[0].made; }
 
     #method TOP($/) { make 'Not implemented.'; }
@@ -55,8 +61,12 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         die 'introspection-query-command:: Not implemented yet !!!';
     }
 
+    method ingredient-query-command($/) {
+        die 'ingredient-query-command:: Not implemented yet !!!';
+    }
+
     method recommendations-command($/) {
-        make 'smrSCS ==> SMRRecommend[] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
+        make 'smrSCS ==> SMRRecommend[' ~ self.makeUserIDTag() ~'] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
     }
 
     method recommendations-by-profile-command($/) {
@@ -72,6 +82,10 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
 
         if $<mixed-food-spec-list> {
              @resProfile.append($<mixed-food-spec-list>.made)
+        }
+
+        if $.userID.chars > 0 {
+            @resProfile = @resProfile.append(self.makeUserIDTag())
         }
 
         #make to_DSL_code('USE TARGET SMRMon-R; use smrSCS; recommend by profile ' ~ @resProfile.join(', ') ~ '; echo pipeline value;');
