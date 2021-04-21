@@ -84,10 +84,8 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     ##-----------------------------------------------------
     method introspection-profile-query ($/) {
 
-        say $<time-interval-spec>.made;
-
         my %tiSpec = $<time-interval-spec>.made;
-        say %tiSpec;
+
         my $tiPred = self.make-time-interval-predicate(%tiSpec);
         my $userIDPred = '#UserID == "' ~ self.makeUserIDTag() ~ '"';
 
