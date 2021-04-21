@@ -32,43 +32,106 @@ use v6;
 
 use DSL::English::FoodPreparationWorkflows::Grammar;
 use DSL::Shared::Actions::English::WL::PipelineCommand;
+use DSL::Shared::Actions::English::TimeIntervalSpec;
+
 use DSL::Entity::English::Foods::Grammar::EntityNames;
 
 use DSL::English::RecommenderWorkflows::Grammar;
 
-
 class DSL::English::FoodPreparationWorkflows::Actions::WL::System
+        is DSL::Shared::Actions::English::TimeIntervalSpec
         is DSL::Shared::Actions::English::WL::PipelineCommand {
 
+    ##=====================================================
+    ## General
+    ##=====================================================
     has Str $.userID;
 
     method makeUserIDTag() {
-        ($.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"UserID:' ~ $.userID ~ '"';
+        ( ! $.userID.defined || $.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"UserID:' ~ $.userID ~ '"';
     }
 
+    method make-time-interval-predicate( %tiSpecArg ) {
+        my %tiSpec = self.normalize-time-interval-spec(%tiSpecArg);
+        'AbsoluteTime[#Date] <= AbsoluteTime[DateObject["' ~ %tiSpec<From> ~ '"]] && AbsoluteTime[#Date] <= AbsoluteTime[DateObject["' ~ %tiSpec<To> ~ '"]]'
+    }
+
+    ##=====================================================
+    ## TOP
+    ##=====================================================
     method TOP($/) { make $/.values[0].made; }
 
-    #method TOP($/) { make 'Not implemented.'; }
-
+    ##=====================================================
+    ## Data query
+    ##=====================================================
     method data-query-command($/)  {
         make $.Str;
         # make 'SELECT Sum(Quantity) FROM inventory WHERE Name == ' ~ $<food-entity> ~ ' AND Location == ' ~ $<location-spec>;
-        make 'Total[dsInvetory[Select[#Name == "' ~ $<food-entity> ~ '" && #Location == "' ~ $<location> ~'" &]][All,Quantity"]]';
+        make 'Total[dsInventory[Select[#Name == "' ~ $<food-entity> ~ '" && #Location == "' ~ $<location> ~'" &]][All,Quantity"]]';
     }
     method location-spec($/) { make $.Str; }
 
-    method introspection-query-command($/) {
-        die 'introspection-query-command:: Not implemented yet !!!';
+    ##=====================================================
+    ## Introspection
+    ##=====================================================
+    method introspection-query-command($/) { make $/.values[0].made; }
+
+    ##-----------------------------------------------------
+    method introspection-counts-query($/) {
+        make $/.values[0].made;
     }
 
+    ##-----------------------------------------------------
+    method introspection-profile-query ($/) {
+
+        say $<time-interval-spec>.made;
+
+        my %tiSpec = $<time-interval-spec>.made;
+        say %tiSpec;
+        my $tiPred = self.make-time-interval-predicate(%tiSpec);
+        my $userIDPred = '#UserID == "' ~ self.makeUserIDTag() ~ '"';
+
+        if $<introspection-action><cook> { $tiPred ~= ' && #CookingQ' }
+
+        with $.userID {
+            make 'dsMeals[Select[' ~ $tiPred ~ ' && '~ $userIDPred ~ '&]]'
+        } else {
+            make 'dsMeals[Select[' ~ $tiPred ~ '&]]'
+        }
+    }
+
+    ##-----------------------------------------------------
+    method introspection-last-time-query ($/) {
+        make $/.values[0].made;
+    }
+
+    ##-----------------------------------------------------
+    method introspection-when-query ($/) {
+        make $/.values[0].made;
+    }
+
+    ##-----------------------------------------------------
+    method introspection-timeline-query ($/) {
+        make $/.values[0].made;
+    }
+
+    ##=====================================================
+    ## Ingredient query
+    ##=====================================================
     method ingredient-query-command($/) {
         die 'ingredient-query-command:: Not implemented yet !!!';
     }
 
+    ##=====================================================
+    ## Recommendations
+    ##=====================================================
     method recommendations-command($/) {
         make 'smrSCS ==> SMRRecommend[' ~ self.makeUserIDTag() ~'] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
     }
 
+    ##=====================================================
+    ## Recommendations by profile
+    ##=====================================================
     method recommendations-by-profile-command($/) {
         my Str @resProfile;
 

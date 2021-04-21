@@ -127,7 +127,8 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     rule which-items-phrase { <what-food-prep-word> | <which-determiner> }
     rule how-many-items-phrase { <what-food-prep-word> <number-food-prep-word> <of-preposition> | <how-food-prep-word> <many-food-prep-word> }
 
-    rule to-eat-pharse { <to-preposition> <eat-food-prep-word> | <to-preposition> <get-verb> }
+    rule to-eat-pharse { <to-preposition> <eat-phrase> }
+    rule eat-pharse { <eat-food-prep-word> | <get-verb> }
 
     rule allergic-reaction-phrase { <allergic-food-prep-word> [ <reaction-food-prep-word> | <complications-food-prep-word> | <complication-food-prep-word> ] }
 
@@ -145,6 +146,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases
     token cooked-food-prep-word { :i 'cooked' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'cooked') }> }
     token course-food-prep-word { :i 'course' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'course') }> }
     token courses-food-prep-word { :i 'courses' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'courses') }> }
+    token did-food-prep-word { :i 'did' }
     token dish-food-prep-word { :i 'dish' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'dish', 1) }> }
     token dishes-food-prep-word { :i 'dishes' | ([\w]+) <?{ is-fuzzy-match( $0.Str, 'dishes') }> }
     token do-food-prep-word { :i 'do' }

@@ -30,8 +30,10 @@
 
 use v6;
 
+use Lingua::NumericWordForms::Roles::English::WordedNumberSpec;
 
 use DSL::Shared::Roles::English::CommonParts;
+use DSL::Shared::Roles::English::TimeIntervalSpec;
 use DSL::Shared::Roles::English::PipelineCommand;
 use DSL::Shared::Roles::PredicateSpecification;
 use DSL::Shared::Roles::ErrorHandling;
@@ -42,6 +44,8 @@ use DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand;
 use DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases;
 
 grammar DSL::English::FoodPreparationWorkflows::Grammar
+        does Lingua::NumericWordForms::Roles::English::WordedNumberSpec
+        does DSL::Shared::Roles::English::TimeIntervalSpec
         does DSL::Shared::Roles::English::PipelineCommand
         does DSL::Shared::Roles::ErrorHandling
         does DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery
