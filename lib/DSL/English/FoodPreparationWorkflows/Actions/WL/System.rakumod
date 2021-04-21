@@ -87,7 +87,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         my %tiSpec = $<time-interval-spec>.made;
 
         my $tiPred = self.make-time-interval-predicate(%tiSpec);
-        my $userIDPred = '#UserID == "' ~ self.makeUserIDTag() ~ '"';
+        my $userIDPred = '#UserID == ' ~ self.makeUserIDTag();
 
         if $<introspection-action><cook> { $tiPred ~= ' && #CookingQ' }
 
