@@ -53,7 +53,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
 
     method make-time-interval-predicate( %tiSpecArg ) {
         my %tiSpec = self.normalize-time-interval-spec(%tiSpecArg);
-        'AbsoluteTime[#Date] <= AbsoluteTime[DateObject["' ~ %tiSpec<From> ~ '"]] && AbsoluteTime[#Date] <= AbsoluteTime[DateObject["' ~ %tiSpec<To> ~ '"]]'
+        'AbsoluteTime[DateObject["' ~ %tiSpec<From> ~ '"]] <= AbsoluteTime[#Date] <= AbsoluteTime[DateObject["' ~ %tiSpec<To> ~ '"]]'
     }
 
     ##=====================================================
@@ -92,9 +92,9 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         if $<introspection-action><cook> { $tiPred ~= ' && #CookingQ' }
 
         with $.userID {
-            make 'dsMeals[Select[' ~ $tiPred ~ ' && '~ $userIDPred ~ '&]]'
+            make 'dsSCSMeals[Select[' ~ $tiPred ~ ' && '~ $userIDPred ~ '&]]'
         } else {
-            make 'dsMeals[Select[' ~ $tiPred ~ '&]]'
+            make 'dsSCSMeals[Select[' ~ $tiPred ~ '&]]'
         }
     }
 
