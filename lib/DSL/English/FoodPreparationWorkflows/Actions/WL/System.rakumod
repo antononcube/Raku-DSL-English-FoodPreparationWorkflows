@@ -53,7 +53,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
 
     method make-time-interval-predicate( %tiSpecArg ) {
         my %tiSpec = self.normalize-time-interval-spec(%tiSpecArg);
-        'AbsoluteTime[DateObject["' ~ %tiSpec<From> ~ '"]] <= AbsoluteTime[#Date] <= AbsoluteTime[DateObject["' ~ %tiSpec<To> ~ '"]]'
+        'AbsoluteTime[DateObject["' ~ %tiSpec<From> ~ '"]] <= AbsoluteTime[#Timestamp] <= AbsoluteTime[DateObject["' ~ %tiSpec<To> ~ '"]]'
     }
 
     ##=====================================================
