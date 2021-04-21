@@ -87,11 +87,11 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         my %tiSpec = $<time-interval-spec>.made;
 
         my $tiPred = self.make-time-interval-predicate(%tiSpec);
-        my $userIDPred = '#UserID == ' ~ self.makeUserIDTag();
 
         if $<introspection-action><cook> { $tiPred ~= ' && #CookingQ' }
 
         with $.userID {
+            my $userIDPred = '#UserID == "' ~ $.userID ~ '"';
             make 'dsSCSMeals[Select[' ~ $tiPred ~ ' && '~ $userIDPred ~ '&]]'
         } else {
             make 'dsSCSMeals[Select[' ~ $tiPred ~ '&]]'
