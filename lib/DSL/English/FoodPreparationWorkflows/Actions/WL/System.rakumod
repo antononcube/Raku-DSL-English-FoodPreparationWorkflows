@@ -91,7 +91,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         }
 
         with $<food-cuisine-spec> {
-            $tiPred ~= ' && ToLowerCase[#Cuisine] == "' ~ self.food-cuisine-spec($<food-cuisine-spec>, :!tag).lc ~ '"'
+            $tiPred ~= ( $tiPred.chars > 0 ?? ' && ' !! ' ') ~ 'ToLowerCase[#Cuisine] == "' ~ self.food-cuisine-spec($<food-cuisine-spec>, :!tag).lc ~ '"'
         }
 
         with $.userID {
