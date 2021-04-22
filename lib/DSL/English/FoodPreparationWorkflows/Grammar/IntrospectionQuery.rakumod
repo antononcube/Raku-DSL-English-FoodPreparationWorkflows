@@ -32,7 +32,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery {
 
     ## Point-in-time
     rule introspection-last-time-query {
-        <.when-food-prep-word> [ <.was-food-prep-word> | <.is-verb> ] <.the-determiner> <last-food-prep-word> <time-food-prep-word> <user-spec> <introspection-action> <food-cuisine-spec>? }
+        [ <.when-pronoun> | <.what-pronoun> ] [ <.was-food-prep-word> | <.is-verb> ] <.the-determiner> <last-food-prep-word> <time-food-prep-word> <user-spec> <introspection-action> <food-cuisine-spec>? }
 
     ## When
     rule introspection-when-query {

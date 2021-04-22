@@ -117,7 +117,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     ##-----------------------------------------------------
     method introspection-last-time-query ($/) {
         my $res = self.introspection-data-retrieval($/);
-        make 'SortBy[' ~ $res ~', -#Timestamp&][[1;;UpTo[3]]]'
+        make $res ~'[SortBy[-AbsoluteTime[#Timestamp]&]][1 ;; UpTo[3]]'
     }
 
     ##-----------------------------------------------------
