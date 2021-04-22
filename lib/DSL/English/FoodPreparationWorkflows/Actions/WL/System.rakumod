@@ -79,12 +79,15 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     ##-----------------------------------------------------
     method introspection-data-retrieval ($/) {
 
-        my %tiSpec = $<time-interval-spec>.made;
+        my $tiPred ='';
 
-        my $tiPred = self.make-time-interval-predicate(%tiSpec);
+        with $<time-interval-spec> {
+            my %tiSpec = $<time-interval-spec>.made;
+            $tiPred = self.make-time-interval-predicate(%tiSpec);
+        };
 
         with $<introspection-action><cook> or $<introspection-action><cooked> {
-            $tiPred ~= ' && #Action == "Cook"'
+            $tiPred ~= ( $tiPred.chars > 0 ?? ' && ' !! ' ') ~ '#Action == "Cook"'
         }
 
         with $<food-cuisine-spec> {
@@ -95,7 +98,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
             my $userIDPred = '#UserID == "' ~ $.userID ~ '"';
             make 'dsSCSMeals[Select[' ~ $tiPred ~ ' && '~ $userIDPred ~ '&]]'
         } else {
-            make 'dsSCSMeals[Select[' ~ $tiPred ~ '&]]'
+            make $tiPred.chars > 0 ?? 'dsSCSMeals[Select[' ~ $tiPred ~ '&]]' !! 'dsSCSMeals'
         }
     }
 
@@ -113,17 +116,20 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
 
     ##-----------------------------------------------------
     method introspection-last-time-query ($/) {
-        make $/.values[0].made;
+        my $res = self.introspection-data-retrieval($/);
+        make 'SortBy[' ~ $res ~', -#Timestamp&][[1;;UpTo[3]]]'
     }
 
     ##-----------------------------------------------------
     method introspection-when-query ($/) {
-        make $/.values[0].made;
+        my $res = self.introspection-data-retrieval($/);
+        make 'SortBy[' ~ $res ~', #Timestamp&]'
     }
 
     ##-----------------------------------------------------
     method introspection-timeline-query ($/) {
-        make $/.values[0].made;
+        my $res = self.introspection-data-retrieval($/);
+        make 'Block[{dsMeals=' ~ $res ~ '}, GroupBy[Normal@dsMeals, #UserID &, TimelinePlot[#Timestamp -> #PeriodMeal & /@ #, AspectRatio -> 1/4, ImageSize -> Large] &]]'
     }
 
     ##=====================================================
@@ -171,6 +177,10 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     }
 
     method entity-country-name($/) {
+        make $/.Str.lc;
+    }
+
+    method entity-region-name($/) {
         make $/.Str.lc;
     }
 
