@@ -9,7 +9,7 @@ use Test;
 
 my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 
-plan 5;
+plan 7;
 
 ok $pCOMMAND.parse('what did we eat between march and april'),
         'what did we eat between march and april';
@@ -25,5 +25,11 @@ ok $pCOMMAND.parse('what did I cook in the last two weeks'),
 
 ok $pCOMMAND.parse('what did I cook last year'),
         'what did I cook last year';
+
+ok $pCOMMAND.parse('how many times I cooked Chinese last year'),
+        'How many times I cooked Chinese last year';
+
+ok $pCOMMAND.parse('how many times I ate Greek food last year'),
+        'How many times I ate Greek food last year';
 
 done-testing;

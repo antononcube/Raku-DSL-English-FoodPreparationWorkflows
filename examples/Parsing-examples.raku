@@ -20,7 +20,7 @@ sub fpw-interpret( Str:D $command, Str:D :$rule = 'TOP' ) {
 #----------------------------------------------------------
 
 say "=" x 60;
-my $cmd = 'what did I cook in the last two weeks';
+my $cmd = 'how many times I ate Chinese food in the last two months';
 
 say fpw-parse( $cmd );
 
@@ -33,6 +33,8 @@ say "=" x 60;
 #----------------------------------------------------------
 
 my @testCommands = (
+'how many times I ate Indian food in the last three months',
+'how many times I cooked Chinese last year',
 'what did we eat between march and april',
 'what did I cook from jan to april',
 'what did I eat from jan to may',
@@ -42,19 +44,19 @@ my @testCommands = (
 
 my @targets = ('WL-System');
 
-for @testCommands -> $c {
-    say "=" x 60;
-    say $c;
-    for @targets -> $t {
-        say '-' x 30;
-        say $t;
-        say '-' x 30;
-        my $start = now;
-        my $res = fpw-interpret($c);
-        say "time:", now - $start;
-        say $res;
-    }
-}
+#for @testCommands -> $c {
+#    say "=" x 60;
+#    say $c;
+#    for @targets -> $t {
+#        say '-' x 30;
+#        say $t;
+#        say '-' x 30;
+#        my $start = now;
+#        my $res = fpw-interpret($c);
+#        say "time:", now - $start;
+#        say $res;
+#    }
+#}
 
 #----------------------------------------------------------
 

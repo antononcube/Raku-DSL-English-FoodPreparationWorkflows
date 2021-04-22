@@ -12,9 +12,9 @@ role DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery {
 
     ## Counts
     rule introspection-counts-query {
-        <how-many-phrase> <user-spec> <.had-food-prep-word> <food-cuisine-spec> <last-food-prep-word> <year-food-prep-word>
+        <.how-many-times-phrase> <user-spec> [ <ate-phrase> | <cooked-phrase> ] <food-cuisine-spec> <time-interval-spec>
     }
-    rule how-many-phrase {
+    rule how-many-times-phrase {
         [ <.what-pronoun> <.number-noun> <.of-preposition> | <.how-adverb> <.many-food-prep-word> ] <.times-noun>
     }
 
@@ -25,7 +25,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery {
         <.what-food-prep-word> <.kind-food-prep-word> <.of-preposition> <entity-food-name> <user-spec> <.make-food-prep-word> <.most-food-prep-word> <.often-food-prep-word>
     }
 
-    rule introspection-action { <eat=.eat-food-prep-word> | <cook=.cook-phrase> }
+    rule introspection-action { <eat=.eat-phrase> | <cook=.cook-phrase> | <ate=.ate-phrase> | <cooked=.cooked-phrase> }
 
     ## Point-in-time
     rule introspection-last-time-query {

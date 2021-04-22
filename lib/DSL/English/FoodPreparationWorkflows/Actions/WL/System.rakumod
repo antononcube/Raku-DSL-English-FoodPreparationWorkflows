@@ -77,18 +77,19 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     method introspection-query-command($/) { make $/.values[0].made; }
 
     ##-----------------------------------------------------
-    method introspection-counts-query($/) {
-        make $/.values[0].made;
-    }
-
-    ##-----------------------------------------------------
-    method introspection-profile-query ($/) {
+    method introspection-data-retrieval ($/) {
 
         my %tiSpec = $<time-interval-spec>.made;
 
         my $tiPred = self.make-time-interval-predicate(%tiSpec);
 
-        if $<introspection-action><cook> { $tiPred ~= ' && #CookingQ' }
+        with $<introspection-action><cook> or $<introspection-action><cooked> {
+            $tiPred ~= ' && #Action == "Cook"'
+        }
+
+        with $<food-cuisine-spec> {
+            $tiPred ~= ' && ToLowerCase[#Cuisine] == "' ~ self.food-cuisine-spec($<food-cuisine-spec>, :!tag).lc ~ '"'
+        }
 
         with $.userID {
             my $userIDPred = '#UserID == "' ~ $.userID ~ '"';
@@ -96,6 +97,18 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         } else {
             make 'dsSCSMeals[Select[' ~ $tiPred ~ '&]]'
         }
+    }
+
+    ##-----------------------------------------------------
+    method introspection-counts-query($/) {
+        my $res = self.introspection-data-retrieval($/);
+        make 'Length[' ~ $res ~']'
+    }
+
+    ##-----------------------------------------------------
+    method introspection-profile-query ($/) {
+        my $res = self.introspection-data-retrieval($/);
+        make 'ResourceFunction["RecordsSummary"][' ~ $res ~']'
     }
 
     ##-----------------------------------------------------
@@ -161,8 +174,8 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         make $/.Str.lc;
     }
 
-    method food-cuisine-spec($/) {
-        make '"Cuisine:' ~ $/.values[0].made ~ '"';
+    method food-cuisine-spec($/, :$tag = True) {
+        make $tag ?? '"Cuisine:' ~ $/.values[0].made ~ '"' !! $/.values[0].made;
     }
 
     method period-meal-spec($/) {
