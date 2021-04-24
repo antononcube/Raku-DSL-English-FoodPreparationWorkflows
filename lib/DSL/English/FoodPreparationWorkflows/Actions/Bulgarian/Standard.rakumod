@@ -32,43 +32,128 @@ use v6;
 
 use DSL::English::FoodPreparationWorkflows::Grammar;
 use DSL::Shared::Actions::English::WL::PipelineCommand;
+use DSL::Shared::Actions::English::TimeIntervalSpec;
+
 use DSL::Entity::English::Foods::Grammar::EntityNames;
 
 use DSL::English::RecommenderWorkflows::Grammar;
 
-
 class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
+        is DSL::Shared::Actions::English::TimeIntervalSpec
         is DSL::Shared::Actions::English::WL::PipelineCommand {
 
+    ##=====================================================
+    ## General
+    ##=====================================================
     has Str $.userID;
 
     method makeUserIDTag() {
-        ($.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"' ~ $.userID ~ '"';
+        ( ! $.userID.defined or $.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"' ~ $.userID ~ '"';
     }
 
+    method make-time-interval-predicate( %tiSpecArg ) {
+        my %tiSpec = self.normalize-time-interval-spec(%tiSpecArg);
+        'между ' ~ %tiSpec<From> ~ ' и ' ~ %tiSpec<To>;
+    }
+
+    ##=====================================================
+    ## TOP
+    ##=====================================================
     method TOP($/) { make $/.values[0].made; }
 
-    #method TOP($/) { make 'Not implemented.'; }
+    ##=====================================================
+    ## Introspection
+    ##=====================================================
+    method introspection-query-command($/) { make $/.values[0].made; }
 
-    method data-query-command($/)  {
-        make $.Str;
-        # make 'SELECT Sum(Quantity) FROM inventory WHERE Name == ' ~ $<food-entity> ~ ' AND Location == ' ~ $<location-spec>;
-        make 'Total[dsInvetory[Select[#Name == "' ~ $<food-entity> ~ '" && #Location == "' ~ $<location> ~'" &]][All,Quantity"]]';
+    ##-----------------------------------------------------
+    method introspection-data-retrieval ($/) {
+
+        my $tiPred = '';
+        my $pred = '';
+        my $cookPred = '';
+
+        with $<time-interval-spec> {
+            my %tiSpec = $<time-interval-spec>.made;
+            $tiPred = self.make-time-interval-predicate(%tiSpec);
+        };
+
+        with $<introspection-action><cook> or $<introspection-action><cooked> {
+            $cookPred = 'готвени ';
+        }
+
+        with $<food-cuisine-spec> {
+            $pred = self.food-cuisine-spec($<food-cuisine-spec>, :!tag).lc;
+        }
+
+        my Str $userIDPred = ($.userID.defined and $.userID.chars > 0) ?? 'за потребителя "' ~ $.userID ~ '" ' !! '';
+
+        my Str $foods = $cookPred ~ 'храненета';
+
+        if $tiPred.chars > 0 and $pred.chars > 0 {
+            make $userIDPred ~ $foods ~ ', които са ' ~ $tiPred ~ ', и за които ' ~ $pred;
+        } elsif  $tiPred.chars > 0 {
+            make $userIDPred ~ $foods ~ ', които са ' ~ $tiPred;
+        } elsif $pred.chars > 0 {
+            make $userIDPred ~ $foods ~ ', за които ' ~ $pred;
+        } else {
+            make $foods ~ ' ' ~ $userIDPred;
+        }
     }
-    method location-spec($/) { make $.Str; }
 
-    method introspection-query-command($/) {
-        die 'introspection-query-command:: Не е имплементирано !!!';
+    ##-----------------------------------------------------
+    method introspection-counts-query($/) {
+        my $res = self.introspection-data-retrieval($/);
+        make 'брой на ' ~ $res;
     }
 
+    ##-----------------------------------------------------
+    method introspection-profile-query ($/) {
+        my $res = self.introspection-data-retrieval($/);
+        make 'Обобщи ' ~ $res;
+    }
+
+    ##-----------------------------------------------------
+    method introspection-last-time-query ($/) {
+        my $res = self.introspection-data-retrieval($/);
+        make 'Кои са последните ' ~ $res;
+    }
+
+    ##-----------------------------------------------------
+    method introspection-when-query ($/) {
+        my $res = self.introspection-data-retrieval($/);
+        make 'Кога ' ~ $res;
+    }
+
+    ##-----------------------------------------------------
+    method introspection-timeline-query ($/) {
+        my $res = self.introspection-data-retrieval($/);
+        make 'Покажи времева линия за ' ~ $res;
+    }
+
+    ##=====================================================
+    ## Ingredient query
+    ##=====================================================
     method ingredient-query-command($/) {
         die 'ingredient-query-command:: Не е имплементирано !!!';
     }
 
+    ##=====================================================
+    ## Recommendations
+    ##=====================================================
     method recommendations-command($/) {
-        make 'Препоръчай ястия, храни или рецепти' ~ ($.userID.chars > 0 ?? ' за потребителя ' ~ self.makeUserIDTag() !! '');
+        with $<cook-phrase> {
+            make 'Препоръчай рецепти за готвене' ~ ($.userID.chars > 0 ?? ' за потребителя ' ~ self.makeUserIDTag() !! '')
+        } orwith $<recipe-phrase> {
+            make 'Препоръчай рецепти' ~ ($.userID.chars > 0 ?? ' за потребителя ' ~ self.makeUserIDTag() !! '')
+        } else {
+            make 'Препоръчай ястия или храни' ~ ($.userID.chars > 0 ?? ' за потребителя ' ~ self.makeUserIDTag() !! '')
+        }
     }
 
+    ##=====================================================
+    ## Recommendations by profile
+    ##=====================================================
     method recommendations-by-profile-command($/) {
         my Str @resProfile;
 
@@ -91,11 +176,18 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
         }
     }
 
+    ##=====================================================
+    ## Fundamental tokens / rules
+    ##=====================================================
     method entity-country-adjective($/) {
         make $/.Str.lc;
     }
 
     method entity-country-name($/) {
+        make $/.Str.lc;
+    }
+
+    method entity-region-name($/) {
         make $/.Str.lc;
     }
 
