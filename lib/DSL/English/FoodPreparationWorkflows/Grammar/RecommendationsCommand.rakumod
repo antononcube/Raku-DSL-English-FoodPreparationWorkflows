@@ -4,7 +4,7 @@ role DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand {
 
     rule recommendations-command {
         <.can-food-prep-word> <.sous-chef-spec> <.recommend-phrase> <.item-of-food-phrase> <.with-preposition> <ingredient-spec-list> |
-        [ <.recommend-phrase> | <.what-food-prep-word> ] [  <several-phrase> || <a-determiner> || <the-determiner> ]? [ <.item-of-food-phrase> | <.recipe-phrase> ]? [ <.to-preposition> <cook-phrase> ]? [ <.for-preposition> <period-spec> ]?
+        [ <.recommend-phrase> | <.what-food-prep-word> ] [ <several-phrase> || <a-determiner> || <the-determiner> ]? [ <.something-food-prep-word> | <.item-of-food-phrase> | <recipe-phrase> ]? [ <.to-preposition> [ <cook-phrase> | <eat-phrase> ] ] ? [ <.for-preposition> <period-spec> ]?
     }
 
     rule recommendations-by-profile-command {
