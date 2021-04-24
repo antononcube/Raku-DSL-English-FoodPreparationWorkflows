@@ -48,7 +48,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
     has Str $.userID;
 
     method makeUserIDTag() {
-        ( ! $.userID.defined || $.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"UserID:' ~ $.userID ~ '"';
+        ( ! $.userID.defined or $.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"UserID:' ~ $.userID ~ '"';
     }
 
     method make-time-interval-predicate( %tiSpecArg ) {
@@ -94,7 +94,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
             $tiPred ~= ( $tiPred.chars > 0 ?? ' && ' !! ' ') ~ 'ToLowerCase[#Cuisine] == "' ~ self.food-cuisine-spec($<food-cuisine-spec>, :!tag).lc ~ '"'
         }
 
-        with $.userID {
+        with $.userID and $.userID.chars > 0 {
             my $userIDPred = '#UserID == "' ~ $.userID ~ '"';
             make 'dsSCSMeals[Select[' ~ $tiPred ~ ' && '~ $userIDPred ~ '&]]'
         } else {
@@ -172,6 +172,9 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
         make 'smrSCS ==> SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
     }
 
+    ##=====================================================
+    ## Fundamental tokens / rules
+    ##=====================================================
     method entity-country-adjective($/) {
         make $/.Str.lc;
     }
