@@ -86,7 +86,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
             $tiPred = self.make-time-interval-predicate(%tiSpec);
         };
 
-        with $<introspection-action><cook> or $<introspection-action><cooked> {
+        if $<introspection-action><cook> or $<introspection-action><cooked> {
             $tiPred ~= ( $tiPred.chars > 0 ?? ' && ' !! ' ') ~ '#Action == "Cook"'
         }
 
@@ -94,7 +94,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::System
             $tiPred ~= ( $tiPred.chars > 0 ?? ' && ' !! ' ') ~ 'ToLowerCase[#Cuisine] == "' ~ self.food-cuisine-spec($<food-cuisine-spec>, :!tag).lc ~ '"'
         }
 
-        with $.userID and $.userID.chars > 0 {
+        if $.userID.defined and $.userID.chars > 0 {
             my $userIDPred = '#UserID == "' ~ $.userID ~ '"';
             make 'dsSCSMeals[Select[' ~ $tiPred ~ ' && '~ $userIDPred ~ '&]]'
         } else {
