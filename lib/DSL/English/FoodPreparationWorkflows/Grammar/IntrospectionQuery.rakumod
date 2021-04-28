@@ -42,9 +42,11 @@ role DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery {
 
     ## Timeline
     rule introspection-timeline-query {
+        [ <.display-timeline-phrase> | <.what-timeline-phrase> ] <.of-preposition>? [ <my-determiner> | <our-determiner> ]
+            [ <food-cuisine-spec> <introspection-action> | <introspection-action> <.of-preposition>? <food-cuisine-spec>? ] |
         [ <.display-timeline-phrase> | <.what-timeline-phrase> ] <.of-preposition>? [ <.when-pronoun> | <.the-determiner> <.times-food-word-prep> ] <user-spec> <introspection-action> <food-cuisine-spec>? |
         [ <.display-timeline-phrase> | <.what-timeline-phrase> ] [ <.of-preposition> | <.for-preposition> ]? [ <.my-food-prep-word> | <.our-food-prep-word> ]? <introspection-action> [ <.of-preposition> | <.for-preposition> ]? <food-cuisine-spec>?
     }
-    rule display-timeline-phrase { <display-directive> <the-determiner>? <timeline-noun> }
+    rule display-timeline-phrase { [ <display-directive> | <plot-directive> ] <the-determiner>? <timeline-noun> }
     rule what-timeline-phrase { <what-pronoun> <is-verb> <the-determiner>? <timeline-noun> }
 }
