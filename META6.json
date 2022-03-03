@@ -22,8 +22,8 @@
   },
   "depends": [
     "DSL::Shared",
-    "DSL::Entity::English::Foods",
-    "DSL::Entity::English::Geographics"
+    "DSL::Entity::Foods",
+    "DSL::Entity::Geographics"
   ],
   "build-depends": [],
   "test-depends": [],
