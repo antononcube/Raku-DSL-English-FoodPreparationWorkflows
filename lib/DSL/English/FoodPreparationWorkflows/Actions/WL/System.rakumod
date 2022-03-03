@@ -34,7 +34,7 @@ use DSL::English::FoodPreparationWorkflows::Grammar;
 use DSL::Shared::Actions::English::WL::PipelineCommand;
 use DSL::Shared::Actions::English::TimeIntervalSpec;
 
-use DSL::Entity::English::Foods::Grammar::EntityNames;
+use DSL::Entity::Foods::Grammar::EntityNames;
 
 use DSL::English::RecommenderWorkflows::Grammar;
 
