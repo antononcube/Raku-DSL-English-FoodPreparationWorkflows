@@ -1,13 +1,20 @@
-use lib './lib';
-use lib '.';
+use v6.d;
+
 use DSL::English::FoodPreparationWorkflows;
+use DSL::Entity::Foods;
+use DSL::Entity::Geographics;
 use Test;
 
-my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
 
 ##===========================================================
 ## Sanity check commands
 ##===========================================================
+
+my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
+$pCOMMAND.set-foods-resources(DSL::Entity::Foods::resource-access-object());
+$pCOMMAND.set-geographics-resources(DSL::Entity::Geographics::resource-access-object());
+
+
 ## The list of tests here is for illustration purposes.
 ## The list is made of small samples of more dedicated tests.
 
