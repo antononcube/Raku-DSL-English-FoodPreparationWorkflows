@@ -18,7 +18,7 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #   Written by Anton Antonov,
-#   antononcube @ posteo . net,
+#   ʇǝu˙oǝʇsod@ǝqnɔuouoʇuɐ,
 #   Windermere, Florida, USA.
 #
 #==============================================================================
@@ -41,6 +41,9 @@ use DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery;
 use DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand;
 use DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases;
 
+use DSL::Entity::Foods::ResourceAccess;
+use DSL::Entity::Geographics::ResourceAccess;
+
 grammar DSL::English::FoodPreparationWorkflows::Grammar
         does DSL::Shared::Roles::English::TimeIntervalSpec
         does DSL::Shared::Roles::English::PipelineCommand
@@ -50,7 +53,16 @@ grammar DSL::English::FoodPreparationWorkflows::Grammar
         does DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand
         does DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases {
 
-    # TOPa
+    my DSL::Entity::Foods::ResourceAccess $foodsResources;
+    my DSL::Entity::Geographics::ResourceAccess $geographicsResources;
+
+    method get-foods-resources(--> DSL::Entity::Foods::ResourceAccess) { return $foodsResources; }
+    method set-foods-resources(DSL::Entity::Foods::ResourceAccess $obj) { $foodsResources = $obj; }
+
+    method get-geographics-resources(--> DSL::Entity::Geographics::ResourceAccess) { return $geographicsResources; }
+    method set-geographics-resources(DSL::Entity::Geographics::ResourceAccess $obj) { $geographicsResources = $obj; }
+
+    # TOP
     rule TOP {
         <pipeline-command> ||
         <ingredient-query-command> ||

@@ -1,7 +1,7 @@
 =begin comment
 #==============================================================================
 #
-#   Food Preparation Workflows Bulgarian DSL actions in Raku (Perl 6)
+#   Food Preparation Workflows WL-Ecosystem actions in Raku (Perl 6)
 #   Copyright (C) 2021  Anton Antonov
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #   Written by Anton Antonov,
-#   antononcube @ posteo . net,
+#   ʇǝu˙oǝʇsod@ǝqnɔuouoʇuɐ
 #   Windermere, Florida, USA.
 #
 #==============================================================================
@@ -36,7 +36,7 @@ use DSL::Shared::Actions::English::TimeIntervalSpec;
 use DSL::Shared::Actions::English::WL::PipelineCommand;
 use DSL::Shared::Entity::Actions::WL::System;
 
-class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
+class DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem
         is DSL::Shared::Actions::English::TimeIntervalSpec
         is DSL::Shared::Entity::Actions::WL::System {
 
@@ -48,20 +48,29 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
     has DSL::Entity::Foods::Actions::WL::System $.foodsActions;
     has DSL::Entity::Geographics::Actions::WL::System $.geoActions;
 
-
     method makeUserIDTag() {
-        ( ! $.userID.defined or $.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"' ~ $.userID ~ '"';
+        ( ! $.userID.defined or $.userID.chars == 0 or $.userID (elem) <NONE NULL>) ?? '' !! '"UserID:' ~ $.userID ~ '"';
     }
 
     method make-time-interval-predicate( %tiSpecArg ) {
         my %tiSpec = self.normalize-time-interval-spec(%tiSpecArg);
-        'между ' ~ %tiSpec<From> ~ ' и ' ~ %tiSpec<To>;
+        'AbsoluteTime[DateObject["' ~ %tiSpec<From> ~ '"]] <= AbsoluteTime[#Timestamp] <= AbsoluteTime[DateObject["' ~ %tiSpec<To> ~ '"]]'
     }
 
     ##=====================================================
     ## TOP
     ##=====================================================
     method TOP($/) { make $/.values[0].made; }
+
+    ##=====================================================
+    ## Data query
+    ##=====================================================
+    method data-query-command($/)  {
+        make $.Str;
+        # make 'SELECT Sum(Quantity) FROM inventory WHERE Name == ' ~ $<food-entity> ~ ' AND Location == ' ~ $<location-spec>;
+        make 'Total[dsInventory[Select[#Name == "' ~ $<food-entity> ~ '" && #Location == "' ~ $<location> ~'" &]][All,Quantity"]]';
+    }
+    method location-spec($/) { make $.Str; }
 
     ##=====================================================
     ## Introspection
@@ -71,86 +80,71 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
     ##-----------------------------------------------------
     method introspection-data-retrieval ($/) {
 
-        my $tiPred = '';
-        my $pred = '';
-        my $cookPred = '';
+        my $tiPred ='';
 
         with $<time-interval-spec> {
             my %tiSpec = $<time-interval-spec>.made;
             $tiPred = self.make-time-interval-predicate(%tiSpec);
         };
 
-        with $<introspection-action><cook> or $<introspection-action><cooked> {
-            $cookPred = 'готвени ';
+        if $<introspection-action><cook> or $<introspection-action><cooked> {
+            $tiPred ~= ( $tiPred.chars > 0 ?? ' && ' !! ' ') ~ '#Action == "Cook"'
         }
 
         with $<food-cuisine-spec> {
-            $pred = self.food-cuisine-spec($<food-cuisine-spec>, :!tag).lc;
+            $tiPred ~= ( $tiPred.chars > 0 ?? ' && ' !! ' ') ~ 'ToLowerCase[#Cuisine] == "' ~ self.food-cuisine-spec($<food-cuisine-spec>, :!tag).lc ~ '"'
         }
 
-        my Str $userIDPred = ($.userID.defined and $.userID.chars > 0) ?? 'за потребителя "' ~ $.userID ~ '" ' !! '';
-
-        my Str $foods = $cookPred ~ 'храненета';
-
-        if $tiPred.chars > 0 and $pred.chars > 0 {
-            make $userIDPred ~ $foods ~ ', които са ' ~ $tiPred ~ ', и за които ' ~ $pred;
-        } elsif  $tiPred.chars > 0 {
-            make $userIDPred ~ $foods ~ ', които са ' ~ $tiPred;
-        } elsif $pred.chars > 0 {
-            make $userIDPred ~ $foods ~ ', за които ' ~ $pred;
+        if $.userID.defined and $.userID.chars > 0 {
+            my $userIDPred = '#UserID == "' ~ $.userID ~ '"';
+            make 'dsSCSMeals[Select[' ~ $tiPred ~ ' && '~ $userIDPred ~ '&]]'
         } else {
-            make $foods ~ ' ' ~ $userIDPred;
+            make $tiPred.chars > 0 ?? 'dsSCSMeals[Select[' ~ $tiPred ~ '&]]' !! 'dsSCSMeals'
         }
     }
 
     ##-----------------------------------------------------
     method introspection-counts-query($/) {
         my $res = self.introspection-data-retrieval($/);
-        make 'брой на ' ~ $res;
+        make 'Length[' ~ $res ~']'
     }
 
     ##-----------------------------------------------------
     method introspection-profile-query ($/) {
         my $res = self.introspection-data-retrieval($/);
-        make 'Обобщи ' ~ $res;
+        make 'ResourceFunction["RecordsSummary"][' ~ $res ~']'
     }
 
     ##-----------------------------------------------------
     method introspection-last-time-query ($/) {
         my $res = self.introspection-data-retrieval($/);
-        make 'Кои са последните ' ~ $res;
+        make $res ~'[SortBy[-AbsoluteTime[#Timestamp]&]][1 ;; UpTo[3]]'
     }
 
     ##-----------------------------------------------------
     method introspection-when-query ($/) {
         my $res = self.introspection-data-retrieval($/);
-        make 'Кога ' ~ $res;
+        make 'SortBy[' ~ $res ~', #Timestamp&]'
     }
 
     ##-----------------------------------------------------
     method introspection-timeline-query ($/) {
         my $res = self.introspection-data-retrieval($/);
-        make 'Покажи времева линия за ' ~ $res;
+        make 'Block[{dsMeals=' ~ $res ~ '}, GroupBy[Normal@dsMeals, #UserID &, TimelinePlot[#Timestamp -> #PeriodMeal & /@ #, AspectRatio -> 1/4, ImageSize -> Large] &]]'
     }
 
     ##=====================================================
     ## Ingredient query
     ##=====================================================
     method ingredient-query-command($/) {
-        die 'ingredient-query-command:: Не е имплементирано !!!';
+        die 'ingredient-query-command:: Not implemented yet !!!';
     }
 
     ##=====================================================
     ## Recommendations
     ##=====================================================
     method recommendations-command($/) {
-        with $<cook-phrase> {
-            make 'Препоръчай рецепти за готвене' ~ ($.userID.chars > 0 ?? ' за потребителя ' ~ self.makeUserIDTag() !! '')
-        } orwith $<recipe-phrase> {
-            make 'Препоръчай рецепти' ~ ($.userID.chars > 0 ?? ' за потребителя ' ~ self.makeUserIDTag() !! '')
-        } else {
-            make 'Препоръчай ястия или храни' ~ ($.userID.chars > 0 ?? ' за потребителя ' ~ self.makeUserIDTag() !! '')
-        }
+        make 'smrSCS ==> SMRRecommend[' ~ self.makeUserIDTag() ~'] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
     }
 
     ##=====================================================
@@ -172,10 +166,11 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
         }
 
         if self.makeUserIDTag().chars > 0 {
-            make 'За потребителя ' ~ self.makeUserIDTag() ~ ' препоръчай ястия, храни или рецепти, които изпълняват условията: ' ~ @resProfile.join(', ');
-        } else {
-            make 'Препоръчай ястия, храни или рецепти, които изпълняват условията: ' ~ @resProfile.join(', ');
+            @resProfile = @resProfile.append(self.makeUserIDTag())
         }
+
+        #make to_DSL_code('USE TARGET SMRMon-R; use smrSCS; recommend by profile ' ~ @resProfile.join(', ') ~ '; echo pipeline value;');
+        make 'smrSCS ==> SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
     }
 
     ##=====================================================
@@ -193,12 +188,12 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
         make $/.Str.lc;
     }
 
-    method food-cuisine-spec($/) {
-        make 'Кухнята е "' ~ $/.values[0].made ~ '"';
+    method food-cuisine-spec($/, :$tag = True) {
+        make $tag ?? '"Cuisine:' ~ $/.values[0].made ~ '"' !! $/.values[0].made;
     }
 
     method period-meal-spec($/) {
-        make 'Времето на хранене е "' ~ $/.Str.trim.lc ~ '"';
+        make '"PeriodMeal:' ~ $/.Str.trim.lc ~ '"';
     }
 
     method mixed-food-spec-list($/) {
@@ -210,10 +205,10 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
     }
 
     method ingredient-spec-list($/) {
-        make 'Съставките включват: ' ~ $/.values>>.made.join(', ');
+        make $/.values>>.made;
     }
 
     method ingredient-spec($/) {
-        make '"' ~ $/.Str.trim.lc ~ '"';
+        make '"Ingredient:' ~ $/.Str.trim.lc ~ '"';
     }
 }
