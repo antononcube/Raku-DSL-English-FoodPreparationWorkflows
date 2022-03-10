@@ -57,6 +57,9 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem
         'AbsoluteTime[DateObject["' ~ %tiSpec<From> ~ '"]] <= AbsoluteTime[#Timestamp] <= AbsoluteTime[DateObject["' ~ %tiSpec<To> ~ '"]]'
     }
 
+    # Separator
+    method separator() { " \\[DoubleLongRightArrow]\n" }
+
     ##=====================================================
     ## TOP
     ##=====================================================
@@ -144,7 +147,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem
     ## Recommendations
     ##=====================================================
     method recommendations-command($/) {
-        make 'smrSCS ==> SMRRecommend[' ~ self.makeUserIDTag() ~'] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
+        make 'smrSCS' ~ self.separator ~ 'SMRRecommend[' ~ self.makeUserIDTag() ~']' ~ self.separator ~ 'SMRMonJoinAcross["Warning"->False]' ~ self.separator ~ 'SMRMonTakeValue[]';
     }
 
     ##=====================================================
@@ -170,7 +173,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem
         }
 
         #make to_DSL_code('USE TARGET SMRMon-R; use smrSCS; recommend by profile ' ~ @resProfile.join(', ') ~ '; echo pipeline value;');
-        make 'smrSCS ==> SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ] ==> SMRMonJoinAcross["Warning"->False] ==> SMRMonTakeValue[]';
+        make 'smrSCS' ~ self.separator ~ 'SMRMonRecommendByProfile[ {' ~ @resProfile.join(', ') ~ '} ]' ~ self.separator ~ 'SMRMonJoinAcross["Warning"->False]' ~ self.separator ~ 'SMRMonTakeValue[]';
     }
 
     ##=====================================================
