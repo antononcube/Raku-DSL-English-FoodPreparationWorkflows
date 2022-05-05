@@ -43,7 +43,7 @@ class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
     ##=====================================================
     ## General
     ##=====================================================
-    has Str $.userID;
+    has Str $.userID is rw;
 
     has DSL::Entity::Foods::Actions::WL::System $.foodsActions;
     has DSL::Entity::Geographics::Actions::WL::System $.geoActions;
