@@ -64,13 +64,19 @@ my DSL::Entity::Foods::Actions::WL::System       $foodsActions .= new( resources
 my DSL::Entity::Geographics::Actions::WL::System $geoActions   .= new( resources => DSL::Entity::Geographics::resource-access-object()  );
 
 #-----------------------------------------------------------
+sub FoodPreparationWorkflowsGrammar() is export {
+    my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
+    $pCOMMAND.set-foods-resources(DSL::Entity::Foods::resource-access-object());
+    $pCOMMAND.set-geographics-resources(DSL::Entity::Geographics::resource-access-object());
+    return $pCOMMAND;
+}
+
+#-----------------------------------------------------------
 proto ToFoodPreparationWorkflowCode(Str $command, Str $target = 'WL-Ecosystem', | ) is export {*}
 
 multi ToFoodPreparationWorkflowCode ( Str $command, Str $target = 'WL-Ecosystem', *%args ) {
 
-    my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
-    $pCOMMAND.set-foods-resources(DSL::Entity::Foods::resource-access-object());
-    $pCOMMAND.set-geographics-resources(DSL::Entity::Geographics::resource-access-object());
+    my $pCOMMAND = FoodPreparationWorkflowsGrammar();
 
     my $ACTOBJ = %targetToAction{$target}.new(:$foodsActions, :$geoActions);
 
