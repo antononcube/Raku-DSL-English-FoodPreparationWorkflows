@@ -2,10 +2,15 @@ use lib './lib';
 use lib '.';
 use DSL::English::FoodPreparationWorkflows;
 
-use DSL::English::FoodPreparationWorkflows::Actions::WL::System;
+use DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem;
+use DSL::Entity::Foods;
+use DSL::Entity::Geographics;
 
 #-----------------------------------------------------------
 my $pCOMMAND = DSL::English::FoodPreparationWorkflows::Grammar;
+
+$pCOMMAND.set-foods-resources(DSL::Entity::Foods::resource-access-object());
+$pCOMMAND.set-geographics-resources(DSL::Entity::Geographics::resource-access-object());
 
 sub fpw-parse( Str:D $command, Str:D :$rule = 'TOP' ) {
         $pCOMMAND.parse($command, :$rule);
@@ -15,12 +20,13 @@ sub fpw-interpret( Str:D $command, Str:D :$rule = 'TOP' ) {
         $pCOMMAND.parse(
                 $command,
                 :$rule,
-                actions => DSL::English::FoodPreparationWorkflows::Actions::WL::System.new ).made;
+                actions => DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem.new ).made;
 }
+
 #----------------------------------------------------------
 
 say "=" x 60;
-my $cmd = 'how many times I ate Chinese food in the last two months';
+my $cmd = 'what did i eat in the last eleven months';
 
 say fpw-parse( $cmd );
 
@@ -33,6 +39,8 @@ say "=" x 60;
 #----------------------------------------------------------
 
 my @testCommands = (
+'show the timeline of my eating',
+'show the timeline of when I ate Chinese',
 'how many times I ate Indian food in the last three months',
 'how many times I cooked Chinese last year',
 'what did we eat between march and april',
@@ -42,21 +50,21 @@ my @testCommands = (
 'what did I cook last year'
 );
 
-my @targets = ('WL-System');
+my @targets = <Bulgarian>;
 
-#for @testCommands -> $c {
-#    say "=" x 60;
-#    say $c;
-#    for @targets -> $t {
-#        say '-' x 30;
-#        say $t;
-#        say '-' x 30;
-#        my $start = now;
-#        my $res = fpw-interpret($c);
-#        say "time:", now - $start;
-#        say $res;
-#    }
-#}
+for @testCommands -> $c {
+    say "=" x 60;
+    say $c;
+    for @targets -> $t {
+        say '-' x 30;
+        say $t;
+        say '-' x 30;
+        my $start = now;
+        my $res = fpw-interpret($c);
+        say "time:", now - $start;
+        say $res;
+    }
+}
 
 #----------------------------------------------------------
 
@@ -133,5 +141,5 @@ my @targets = ('WL-System');
 #$pCOMMAND.parse(
 #                'what did we eat between january and march',
 #                rule => 'introspection-query-command',
-#                actions => DSL::English::FoodPreparationWorkflows::Actions::WL::System.new ).made;
+#                actions => DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem.new ).made;
 
