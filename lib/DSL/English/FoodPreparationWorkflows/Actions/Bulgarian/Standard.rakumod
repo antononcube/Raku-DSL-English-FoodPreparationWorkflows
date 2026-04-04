@@ -1,11 +1,11 @@
 use DSL::Entity::Foods::Actions::WL::System;
 use DSL::Entity::Geographics::Actions::WL::System;
-use DSL::Shared::Actions::English::TimeIntervalSpec;
+use DSL::Shared::Actions::English::TimeIntervalSpecRefPoint;
 use DSL::Shared::Actions::English::WL::PipelineCommand;
 use DSL::Shared::Entity::Actions::WL::System;
 
 class DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard
-        is DSL::Shared::Actions::English::TimeIntervalSpec
+        is DSL::Shared::Actions::English::TimeIntervalSpecRefPoint
         is DSL::Shared::Entity::Actions::WL::System {
 
     ##=====================================================
