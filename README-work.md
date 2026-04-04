@@ -79,39 +79,17 @@ $pCOMMAND.set-foods-resources(DSL::Entity::Foods::resource-access-object());
 $pCOMMAND.set-geographics-resources(DSL::Entity::Geographics::resource-access-object());
 $pCOMMAND.WHAT
 ```
-```
-# (Grammar)
-```
 
 Here is a "recommendation by profile" command parsing:
 
 ```raku
 $pCOMMAND.parse('can you suggest a local cuisine')
 ```
-```
-# ｢can you suggest a local cuisine｣
-#  recommendations-by-profile-command => ｢can you suggest a local cuisine｣
-#   food-cuisine-spec => ｢local cuisine｣
-#    local-adjective => ｢local｣
-```
 
 Here is an "ingredients query" command parsing:
 
 ```raku
 $pCOMMAND.parse('what number of dishes have low carbs')
-```
-```
-# ｢what number of dishes have low carbs｣
-#  ingredient-query-command => ｢what number of dishes have low carbs｣
-#   ingredient-query-how-many-items-query => ｢what number of dishes have low carbs｣
-#    ingredient-query-body => ｢dishes have low carbs｣
-#     item-of-food-phrase => ｢dishes ｣
-#      dish-phrase => ｢dishes｣
-#       dishes-food-prep-word => ｢dishes｣
-#     ingredient-spec-list => ｢low carbs｣
-#      ingredient-spec => ｢low carbs｣
-#       low-adjective => ｢low｣
-#       carbs-food-prep-word => ｢carbs｣
 ```
 
 ### Interpretation
@@ -124,32 +102,17 @@ Here is a "recommendation by profile" command interpretation:
 ```raku
 ToFoodPreparationWorkflowCode( 'i want to eat lunch from China', "WL-Ecosystem");
 ```
-```
-# smrSCS \[DoubleLongRightArrow]
-# SMRMonRecommendByProfile[ {"PeriodMeal:lunch"} ] \[DoubleLongRightArrow]
-# SMRMonJoinAcross["Warning"->False] \[DoubleLongRightArrow]
-# SMRMonTakeValue[]
-```
 
 Another one:
 
 ```raku
 ToFoodPreparationWorkflowCode( 'can you suggest dishes with protein', "WL-Ecosystem");
 ```
-```
-# smrSCS \[DoubleLongRightArrow]
-# SMRRecommend[] \[DoubleLongRightArrow]
-# SMRMonJoinAcross["Warning"->False] \[DoubleLongRightArrow]
-# SMRMonTakeValue[]
-```
 
 Here is the interpretation of an "introspection query":
 
 ```raku
 ToFoodPreparationWorkflowCode( 'show the timeline of when I ate Greek', "WL-Ecosystem");
-```
-```
-# Block[{dsMeals=dsSCSMeals[Select[ ToLowerCase[#Cuisine] == "greek"&]]}, GroupBy[Normal@dsMeals, #UserID &, TimelinePlot[#Timestamp -> #PeriodMeal & /@ #, AspectRatio -> 1/4, ImageSize -> Large] &]]
 ```
 
 ----
