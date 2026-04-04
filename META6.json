@@ -5,11 +5,11 @@
     "authors": [
         "Anton Antonov"
     ],
-    "auth": "github:antononcube",
+    "auth": "zef:antononcube",
     "depends": [
-        "DSL::Shared",
-        "DSL::Entity::Foods",
-        "DSL::Entity::Geographics"
+        "DSL::Shared:ver<0.2.11+>",
+        "DSL::Entity::Foods:ver<0.1.0+>",
+        "DSL::Entity::Geographics:ver<0.1.5+>"
     ],
     "build-depends": [],
     "provides": {
