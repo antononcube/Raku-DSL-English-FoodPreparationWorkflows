@@ -1,43 +1,42 @@
 {
-  "name": "DSL::English::FoodPreparationWorkflows",
-  "description": "Food preparation workflows building by natural language commands.",
-  "version": "0.1.0",
-  "perl": "6.d",
-  "authors": [
-    "Anton Antonov"
-  ],
-  "auth": "github:antononcube",
-  "depends": [
-    "DSL::Shared",
-    "DSL::Entity::Foods",
-    "DSL::Entity::Geographics"
-  ],
-  "build-depends": [],
-  "test-depends": [],
-  "provides": {
-    "DSL::English::FoodPreparationWorkflows": "lib/DSL/English/FoodPreparationWorkflows.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard": "lib/DSL/English/FoodPreparationWorkflows/Actions/Bulgarian/Standard.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem": "lib/DSL/English/FoodPreparationWorkflows/Actions/WL/Ecosystem.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Grammar": "lib/DSL/English/FoodPreparationWorkflows/Grammar.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases": "lib/DSL/English/FoodPreparationWorkflows/Grammar/FoodPreparationPhrases.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IngredientQuery.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Grammar::IngredientSpec": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IngredientSpec.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IntrospectionQuery.rakumod",
-    "DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand": "lib/DSL/English/FoodPreparationWorkflows/Grammar/RecommendationsCommand.rakumod"
-  },
-  "resources": [],
-  "license": "GPL-3.0-or-later",
-  "tags": [
-    "food",
-    "drink",
-    "preparation",
-    "cooking",
-    "parser",
-    "interpreter",
-    "monad",
-    "workflow",
-    "pipeline"
-  ],
-  "api": "1",
-  "source-url": "https://github.com/antononcube/Raku-DSL-English-FoodPreparationWorkflows.git"
+    "name": "DSL::English::FoodPreparationWorkflows",
+    "description": "Food preparation workflows building by natural language commands.",
+    "version": "0.1.0",
+    "authors": [
+        "Anton Antonov"
+    ],
+    "auth": "github:antononcube",
+    "depends": [
+        "DSL::Shared",
+        "DSL::Entity::Foods",
+        "DSL::Entity::Geographics"
+    ],
+    "build-depends": [],
+    "provides": {
+        "DSL::English::FoodPreparationWorkflows": "lib/DSL/English/FoodPreparationWorkflows.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Actions::Bulgarian::Standard": "lib/DSL/English/FoodPreparationWorkflows/Actions/Bulgarian/Standard.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Actions::R::Ecosystem": "lib/DSL/English/FoodPreparationWorkflows/Actions/R/Ecosystem.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Actions::Raku::Ecosystem": "lib/DSL/English/FoodPreparationWorkflows/Actions/Raku/Ecosystem.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Actions::WL::Ecosystem": "lib/DSL/English/FoodPreparationWorkflows/Actions/WL/Ecosystem.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Grammar": "lib/DSL/English/FoodPreparationWorkflows/Grammar.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Grammar::FoodPreparationPhrases": "lib/DSL/English/FoodPreparationWorkflows/Grammar/FoodPreparationPhrases.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Grammar::IngredientQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IngredientQuery.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Grammar::IngredientSpec": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IngredientSpec.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Grammar::IntrospectionQuery": "lib/DSL/English/FoodPreparationWorkflows/Grammar/IntrospectionQuery.rakumod",
+        "DSL::English::FoodPreparationWorkflows::Grammar::RecommendationsCommand": "lib/DSL/English/FoodPreparationWorkflows/Grammar/RecommendationsCommand.rakumod"
+    },
+    "license": "GPL-3.0-or-later",
+    "tags": [
+        "food",
+        "drink",
+        "preparation",
+        "cooking",
+        "parser",
+        "interpreter",
+        "monad",
+        "workflow",
+        "pipeline"
+    ],
+    "api": "1",
+    "source-url": "https://github.com/antononcube/Raku-DSL-English-FoodPreparationWorkflows.git"
 }
